@@ -1,10 +1,11 @@
 import React from 'react'
+import { Text } from 'react-native'
 
 const GamePage = () => {
     return (
-        <div>
-            
-        </div>
+        <Text>
+            Hi
+        </Text>
     )
 }
 
