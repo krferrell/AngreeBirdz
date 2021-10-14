@@ -1,13 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { GamePage, MainMenu } from './components';
+import { NativeRouter, Route } from 'react-router-native';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NativeRouter>
+      <View style={styles.container}>
+        <Route component={GamePage} path="/gamepage" exact />
+        <Route component={MainMenu} path="/" exact />
+      </View>
+    </NativeRouter>
   );
 }
 
