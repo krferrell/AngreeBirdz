@@ -4,6 +4,7 @@ import { Text, View } from 'react-native';
 import { Dimensions } from 'react-native';
 import { GameEngine } from "react-native-game-engine";
 import BoxObstacle from './BoxObstacle';
+import Bird from './Bird';
 
 
 const GamePage = () => {
@@ -18,7 +19,8 @@ const GamePage = () => {
           entities={{
             obstacle1: { position: [0, 350], size: [50, 150], renderer: <BoxObstacle/> },
             obstacle2: { position: [0, 200], size: [20, 200], renderer: <BoxObstacle/> },
-            obstacle3: { position: [0, 100], size: [20, 120], renderer: <BoxObstacle/> }
+            obstacle3: { position: [0, 100], size: [20, 120], renderer: <BoxObstacle/> },
+            bird: { renderer: <Bird/>},
           }}
         ></GameEngine>
     </>
