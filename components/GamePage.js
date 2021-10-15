@@ -1,12 +1,28 @@
-import React from 'react'
-import { Text } from 'react-native'
+import React from 'react';
+import { Engine, Render, Matter, Bodies, World } from 'matter-js';
+import { Text, View } from 'react-native';
+import { Dimensions } from 'react-native';
+import { GameEngine } from "react-native-game-engine";
+import BoxObstacle from './BoxObstacle';
+
 
 const GamePage = () => {
-    return (
-        <Text>
-            Hi
-        </Text>
-    )
+  return (
+      <>
+        <GameEngine
+          style={{
+            width: Dimensions.get("screen").width,
+            height: Dimensions.get("screen").height,
+            backgroundColor: "lightgrey",
+          }}
+          entities={{
+            obstacle1: { position: [0, 350], size: [50, 150], renderer: <BoxObstacle/> },
+            obstacle2: { position: [0, 200], size: [20, 200], renderer: <BoxObstacle/> },
+            obstacle3: { position: [0, 100], size: [20, 120], renderer: <BoxObstacle/> }
+          }}
+        ></GameEngine>
+    </>
+  )
 }
 
-export default GamePage
+export default GamePage;
