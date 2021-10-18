@@ -10,7 +10,7 @@ const BoxObstacle = ({position, size}) => {
           right: position[1],
           height: size[1],
           width: size[0]
-          }]}/>
+        }]}/>
       </>
     )
 }
