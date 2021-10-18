@@ -2,9 +2,11 @@ import React, { useEffect } from 'react';
 import { Engine, Bodies, Runner, World } from 'matter-js';
 import { Dimensions } from 'react-native';
 import { GameEngine } from "react-native-game-engine";
-import BoxObstacle from './BoxObstacle';
-import Bird from './Bird';
-import { BirdMover, bird } from './BirdMover';
+import BoxObstacle from './GameComponents/BoxObstacle';
+import Bird from './GameComponents/Bird';
+import TextView from './GameComponents/TextView';
+import { BirdMover, bird } from './GameComponents/BirdMover';
+
 
 const GamePage = () => {
     let screenWidth = Dimensions.get("screen").width;
@@ -39,6 +41,7 @@ const GamePage = () => {
         obstacle2: { position: [0, 50], size: [20, 200], renderer: <BoxObstacle/> },
         ground: { position: [0, 0], size: [screenWidth, 5], renderer: <BoxObstacle/> },
         birdGE1: { position: [100, 150], diameter: 35, renderer: <Bird/>}, 
+        xForce: { renderer: <TextView />}
       }}
     ></GameEngine>
   )
