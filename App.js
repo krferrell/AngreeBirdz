@@ -11,7 +11,9 @@ export default function App() {
         <Route component={GamePage} path="/gamepage" exact />
         <Route component={MainMenu} path="/" exact />
       </View>
+      <StatusBar hidden/>
     </NativeRouter>
+
   );
 }
 
