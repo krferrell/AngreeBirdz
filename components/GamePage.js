@@ -1,36 +1,17 @@
-import React, { useEffect } from 'react';
-import { Engine, Bodies, Runner, World } from 'matter-js';
+import React from 'react';
 import { Dimensions } from 'react-native';
 import { GameEngine } from "react-native-game-engine";
 import BoxObstacle from './GameComponents/BoxObstacle';
 import Bird from './GameComponents/Bird';
-import TextView from './GameComponents/TextView';
-import { BirdMover, bird } from './GameComponents/BirdMover';
-
 
 const GamePage = () => {
-    let screenWidth = Dimensions.get("screen").width;
-    let screenHeight = Dimensions.get("screen").height;
-    let engine;
-    let world;
-    let ground = Bodies.rectangle(-17, 100, 10, 100000, {isStatic: true});
 
-    const setup = () => {
-      engine = Engine.create(); 
-      engine.gravity.x = -1;
-      engine.gravity.y = 0;
-      world = engine.world;
-      Runner.run(engine);
-      World.add(world, [ground, bird]);
-    }
+  let screenWidth = Dimensions.get("screen").width;
+  let screenHeight = Dimensions.get("screen").height;
 
-    useEffect(()=>{
-        setup();
-    }, []);
-
-    return (
+  return (
     <GameEngine
-      systems={[BirdMover]}
+      systems={[]}
       style={{
         width: screenWidth,
         height: screenHeight,
