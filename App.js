@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { GamePage, MainMenu } from './components';
+import { GamePage, LevelSelect, MainMenu, SignIn } from './components';
 import { NativeRouter, Route } from 'react-router-native';
 
 export default function App() {
@@ -9,6 +9,8 @@ export default function App() {
     <NativeRouter>
       <View style={styles.container}>
         <Route component={GamePage} path="/gamepage" exact />
+        <Route component={LevelSelect} path="/levelselect" exact />
+        <Route component={SignIn} path="/profile" exact />
         <Route component={MainMenu} path="/" exact />
       </View>
       <StatusBar hidden/>
