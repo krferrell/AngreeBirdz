@@ -1,10 +1,11 @@
 import React from 'react';
+import { Text, View } from 'react-native';
 
 const LevelSelect = () => {
     return (
-        <div>
-            
-        </div>
+        <View>
+            <Text>Level Select</Text>
+        </View>
     )
 }
 
