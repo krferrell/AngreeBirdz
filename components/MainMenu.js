@@ -4,7 +4,7 @@ import { Link } from "react-router-native";
 import * as Font from "expo-font";
 
 const MainMenu = () => {
-  const [fontLoading, setFontLoading] = useState(false);
+  const [fontLoading, setFontLoading] = useState(true);
 
   let customFonts = {
     SchoolBell: require("../assets/fonts/Schoolbell-Regular.ttf"),
@@ -12,7 +12,7 @@ const MainMenu = () => {
 
   const _loadFontsAsync = async () => {
     await Font.loadAsync(customFonts);
-    setFontLoading(true);
+    setFontLoading(false);
   };
 
   useEffect(() => {
@@ -24,17 +24,17 @@ const MainMenu = () => {
       <Image source={require("../assets/cloudBackground.png")} />
       <View style={[styles.container, styles.shadowBox]}>
         <View>
-          <Text style={[styles.title, styles.shadowText, {fontFamily: fontLoading ? "SchoolBell" : null}]}>Weird Games</Text>
+          <Text style={[styles.title, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>Weird Games</Text>
         </View>
         <View style={styles.buttonContainer}>
           <Link to="/gamepage">
-            <Text style={[styles.buttons, styles.shadowText, {fontFamily: fontLoading ? "SchoolBell" : null}]}>Start</Text>
+            <Text style={[styles.buttons, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>Start</Text>
           </Link>
           <Link to="/levelselect">
-            <Text style={[styles.buttons, styles.shadowText, {fontFamily: fontLoading ? "SchoolBell" : null}]}>Game Select</Text>
+            <Text style={[styles.buttons, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>Game Select</Text>
           </Link>
           <Link to="/profile">
-            <Text style={[styles.buttons, styles.shadowText, {fontFamily: fontLoading ? "SchoolBell" : null}]}>Profile</Text>
+            <Text style={[styles.buttons, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>Profile</Text>
           </Link>
         </View>
       </View>
