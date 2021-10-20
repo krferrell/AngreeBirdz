@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View, SafeAreaView } from "react-native";
 import { Link } from "react-router-native";
 import * as Font from "expo-font";
+import { useDispatch } from 'react-redux';
+import { changeGame } from '../redux/gameState';
 
 const MainMenu = () => {
   const [fontLoading, setFontLoading] = useState(true);
+  
+  const dispatch = useDispatch();
 
   let customFonts = {
     SchoolBell: require("../assets/fonts/Schoolbell-Regular.ttf"),
@@ -17,6 +21,7 @@ const MainMenu = () => {
 
   useEffect(() => {
     _loadFontsAsync();
+    dispatch(changeGame("PLAY"));
   }, []);
 
   return (
@@ -96,6 +101,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 5,
   },
+  
   shadowText: {
     textShadowColor: "rgba(0, 0, 0, 0.75)",
     textShadowOffset: { width: -1, height: 1 },
