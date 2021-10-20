@@ -26,7 +26,7 @@ const GamePage = () => {
         modal: { renderer: <PauseButton /> }
       }}
     />
-  )
-}
+  );
+};
 
 export default GamePage;

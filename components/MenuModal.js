@@ -35,8 +35,8 @@ const MenuModal = () => {
                 </Link>
             </View>
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     modalPageBackground: {
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         height: screenHeight, 
         width: screenWidth
     },
-    
+
     modalContainer: {
         display: "flex",
         backgroundColor: "#377F9D",
@@ -78,6 +78,6 @@ const styles = StyleSheet.create({
         color: "#fff",
         color: 'white',
     },
-})
+});
 
 export default MenuModal;

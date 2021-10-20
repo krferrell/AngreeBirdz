@@ -20,7 +20,7 @@ export default function App() {
       </NativeRouter>
     </Provider>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
