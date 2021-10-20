@@ -1,44 +1,83 @@
 import React from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { Dimensions, StyleSheet,  } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeGame } from '../redux/gameState';
+import { Link } from "react-router-native";
 
 let screenWidth = Dimensions.get("screen").width;
 let screenHeight = Dimensions.get("screen").height;
 
 const MenuModal = () => {
 
+    const gameState = useSelector(state => state.gameState.value);
+
+    const dispatch = useDispatch();
 
     return (
-        <View style={ styles.modalBackground}>
-        <Pressable
-            style={styles.pauseButton} 
-            onPress={() => setGameState("PAUSE")} 
-            title={'Play'}
-        ></Pressable>
-            <Text style={styles.modalText}>helooooo</Text>
+        <View style={ styles.modalPageBackground}>
+            <View style={ styles.modalContainer}>
+                <Pressable
+                    style={styles.playButton} 
+                    onPress={() => dispatch(changeGame("PLAY"))}
+                >
+                    {
+                        gameState === 'PAUSE' ? 
+                        <Text style={[styles.modalText, styles.addShadow]}>Resume?</Text> :
+                        <Text style={[styles.modalText, styles.addShadow]}>Replay?</Text>
+                    }
+                </Pressable>
+                <Link to="/">
+                    <Text style={[styles.modalText, styles.addShadow]}>Home Page</Text>
+                </Link>
+                <Link to="/levelselect">
+                    <Text style={[styles.modalText, styles.addShadow]}>Level Select Page</Text>
+                </Link>
+            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    modalBackground: {
+    modalPageBackground: {
         backgroundColor: 'rgba(0,0,0,0.3)', 
         height: screenHeight, 
         width: screenWidth
     },
-    modalText: {
-        position: 'absolute',
-        top: screenHeight / 2,
-        right: screenWidth / 2,
-        color: 'red'
+    
+    modalContainer: {
+        display: "flex",
+        backgroundColor: "#377F9D",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+        marginLeft: "29%",
+        marginTop: "1%",
+        height: "95%",
+        width: "40%",
+        borderRadius: 85,
+        flexDirection: "column",
+        position: "absolute",
+
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 5,
     },
-    playButton: {
-        position: 'absolute',
-        top: 20,
-        right: 20,
-        height: 10,
-        width: 10,
-    }
+
+    addShadow: {
+        textShadowColor: "rgba(0, 0, 0, 0.75)",
+        textShadowOffset: { width: -1, height: 1 },
+        textShadowRadius: 10,
+    },
+
+    modalText: {
+        fontFamily: 'SchoolBell',
+        fontSize: 35,
+        padding: 5,
+        color: "#fff",
+        color: 'white',
+    },
 })
 
 export default MenuModal;
