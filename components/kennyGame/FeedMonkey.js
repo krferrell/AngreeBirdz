@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
       height: 200,
       width: 0,
       borderRadius: 50,
-    //   backgroundColor: "red",
       position: "absolute",
       top: 150,
       right: 0,
