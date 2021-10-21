@@ -32,7 +32,7 @@ const MainMenu = () => {
           <Text style={[styles.title, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>Weird Games</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Link to="/kgame">
+          <Link to="/game">
             <Text style={[styles.buttons, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>Start</Text>
           </Link>
           <Link to="/levelselect">

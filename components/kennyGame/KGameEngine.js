@@ -9,17 +9,15 @@ const KGamePage = () => {
 
   let birdCoordsX = Math.floor(screenHeight / 2);
   let birdCoordsY = 0;
+  let mounted = true;
 
   const [data, setData] = useState({ x: 0, y: 0 });
   const [subscription, setSubscription] = useState(null);
 
-  const _fast = () => {
-    Gyroscope.setUpdateInterval(16);
-  };
-
   const _subscribe = () => {
     setSubscription(
       Gyroscope.addListener((gyroscopeData) => {
+        Gyroscope.setUpdateInterval(16);
         setData(gyroscopeData);
       })
     );
@@ -27,20 +25,22 @@ const KGamePage = () => {
 
   const _unsubscribe = () => {
     subscription && subscription.remove();
+    Gyroscope.removeAllListeners();
     setSubscription(null);
   };
 
   useEffect(() => {
     _subscribe();
-    _fast();
-    return () => _unsubscribe();
+
+    return () => {
+      _unsubscribe();
+    };
   }, [data]);
 
   const moveBird = (entities) => {
-
     entities.kBird.position[1] += .5;
-
     entities.kBird.position[0] += data.y*5;
+
     return entities;
   };
 
