@@ -20,7 +20,6 @@ const styles = (props) =>
       height: 200,
       width: 100,
       borderRadius: 50,
-      // backgroundColor: "red",
       top: props.x,
       left: props.y,
       justifyContent: "center",
