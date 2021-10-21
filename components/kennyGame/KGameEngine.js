@@ -44,7 +44,6 @@ const KGamePage = () => {
 
   useEffect(() => {
     _subscribe();
-    _fast();
     return () => _unsubscribe();
   }, []);
 
