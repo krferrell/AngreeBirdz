@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeGame } from '../../redux/gameState';
+import { changeGame } from '../redux/gameState';
 import { Pressable, StyleSheet, Image, Dimensions } from "react-native";
-import MenuModal from '../MenuModal';
-import pauseBtn from '../../assets/pause.png';
+import MenuModal from './MenuModal';
+import pauseBtn from '../assets/pause.png';
 
 let screenWidth = Dimensions.get("screen").width;
 
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         width: 40,
         position: 'absolute',
         top: 10,
-        left: screenWidth - 120
+        left: screenWidth - 160
     },
     pauseBtnImg: {
         height: 40,

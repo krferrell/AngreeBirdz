@@ -12,6 +12,7 @@ const KGamePage = () => {
 
   let birdCoordsX = Math.floor(screenHeight / 2);
   let birdCoordsY = 0;
+  let mounted = true;
 
   let grabberMonkey1X = -250;
   let grabberMonkey1Y = screenWidth / 9;
@@ -26,13 +27,10 @@ const KGamePage = () => {
   const [monkeyBool2, setMonkeyBool2] = useState(true);
   const [monkeyBool3, setMonkeyBool3] = useState(true);
 
-  const _fast = () => {
-    Gyroscope.setUpdateInterval(16);
-  };
-
   const _subscribe = () => {
     setSubscription(
       Gyroscope.addListener((gyroscopeData) => {
+        Gyroscope.setUpdateInterval(16);
         setData(gyroscopeData);
       })
     );
@@ -40,6 +38,7 @@ const KGamePage = () => {
 
   const _unsubscribe = () => {
     subscription && subscription.remove();
+    Gyroscope.removeAllListeners();
     setSubscription(null);
   };
 
