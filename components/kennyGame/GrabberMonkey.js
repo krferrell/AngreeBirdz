@@ -3,7 +3,7 @@ import { StyleSheet, View, Image } from "react-native";
 
 export default GrabberMonkey = ({ position, isUp }) => {
   return (
-    <View style={styles({ x: position[0], y: position[1] }).bird}>
+    <View style={styles({ x: position[0], y: position[1] }).monkeys}>
       <Image
         source={
           isUp
@@ -18,7 +18,7 @@ export default GrabberMonkey = ({ position, isUp }) => {
 
 const styles = (props) =>
   StyleSheet.create({
-    bird: {
+    monkeys: {
       height: 200,
       width: 100,
       borderRadius: 50,
