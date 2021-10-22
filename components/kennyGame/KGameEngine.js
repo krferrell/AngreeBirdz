@@ -14,12 +14,12 @@ const KGamePage = () => {
   let birdCoordsY = 0;
   let mounted = true;
 
-  let grabberMonkey1X = -250;
+  let grabberMonkey1X = -200;
   let grabberMonkey1Y = screenWidth / 9;
-  let grabberMonkey2X = -350;
+  let grabberMonkey2X = -200;
   let grabberMonkey2Y = screenWidth - 370;
-  let grabberMonkey3X = -100;
-  let grabberMonkey3Y = screenWidth/3;
+  let grabberMonkey3X = screenHeight;
+  let grabberMonkey3Y = screenWidth / 3;
 
   const [data, setData] = useState({ x: 0, y: 0 });
   const [subscription, setSubscription] = useState(null);
@@ -59,29 +59,29 @@ const KGamePage = () => {
       }
     } else if (!monkeyBool1) {
       monkey1.position[0] -= 2;
-      if (monkey1.position[0] === -250) {
+      if (monkey1.position[0] === -200) {
         setMonkeyBool1(true);
       }
     }
-    if (monkey2.position[0] < -50 && monkeyBool2) {
+    if (monkey2.position[0] < 150 && monkeyBool2) {
       monkey2.position[0] += 2;
-      if (monkey2.position[0] === -50) {
+      if (monkey2.position[0] === 150) {
         setMonkeyBool2(false);
       }
     } else if (!monkeyBool2) {
       monkey2.position[0] -= 2;
-      if (monkey2.position[0] === -450) {
+      if (monkey2.position[0] === -200) {
         setMonkeyBool2(true);
       }
     }
-    if (monkey3.position[0] < -50 && monkeyBool3) {
-      monkey3.position[0] += 2;
-      if (monkey3.position[0] === -50) {
+    if (monkey3.position[0] > 100 && monkeyBool3) {
+      monkey3.position[0] -= 2;
+      if (monkey3.position[0] === screenHeight - 150) {
         setMonkeyBool3(false);
       }
     } else if (!monkeyBool3) {
-      monkey3.position[0] -= 2;
-      if (monkey3.position[0] === -450) {
+      monkey3.position[0] += 2;
+      if (monkey3.position[0] === screenHeight) {
         setMonkeyBool3(true);
       }
     }
@@ -105,9 +105,47 @@ const KGamePage = () => {
     return entities;
   };
 
+  const checkLose = (entities) => {
+    let bird = entities.kBird;
+    let monkey1 = entities.grabberMonkey1;
+    let monkey2 = entities.grabberMonkey2;
+    let monkey3 = entities.grabberMonkey3;
+
+    if (
+      (bird.position[0] < monkey1.position[0] + 85 &&
+        bird.position[0] > monkey1.position[0] - 90 &&
+        bird.position[1] > monkey1.position[1] - 45 &&
+        bird.position[1] < monkey1.position[1] + 45) ||
+      (bird.position[0] < monkey2.position[0] + 85 &&
+        bird.position[0] > monkey2.position[0] - 90 &&
+        bird.position[1] > monkey2.position[1] - 45 &&
+        bird.position[1] < monkey2.position[1] + 45) ||
+      (bird.position[0] < monkey3.position[0] + 85 &&
+        bird.position[0] > monkey3.position[0] - 90 &&
+        bird.position[1] > monkey3.position[1] - 45 &&
+        bird.position[1] < monkey3.position[1] + 45)
+    ) {
+      console.log("you lose ");
+    }
+
+    return entities;
+  };
+
+  const checkWin = (entities) => {
+    let bird = entities.kBird;
+    if (
+      bird.position[0] > screenHeight / 2 - 20 &&
+      bird.position[0] < screenHeight / 2 + 55 &&
+      bird.position[1] > screenWidth - 100
+    ) {
+      console.log("you win");
+    }
+    return entities;
+  };
+
   return (
     <GameEngine
-      systems={[moveBird, moveMonkeys]}
+      systems={[moveBird, moveMonkeys, checkLose, checkWin]}
       style={{
         backgroundColor: "lightblue",
         position: "absolute",
@@ -118,10 +156,22 @@ const KGamePage = () => {
       }}
       entities={{
         kBird: { position: [birdCoordsX, birdCoordsY], renderer: <KBird /> },
-        grabberMonkey1: {position: [grabberMonkey1X, grabberMonkey1Y], renderer: <GrabberMonkey />},
-        grabberMonkey2: {position: [grabberMonkey2X, grabberMonkey2Y], renderer: <GrabberMonkey />},
-        grabberMonkey3: { position: [grabberMonkey3X, grabberMonkey3Y], renderer: <GrabberMonkey />},
-        feedMonkey: { renderer: <FeedMonkey />},
+        grabberMonkey1: {
+          position: [grabberMonkey1X, grabberMonkey1Y],
+          isUp: false,
+          renderer: <GrabberMonkey />,
+        },
+        grabberMonkey2: {
+          position: [grabberMonkey2X, grabberMonkey2Y],
+          isUp: false,
+          renderer: <GrabberMonkey />,
+        },
+        grabberMonkey3: {
+          position: [grabberMonkey3X, grabberMonkey3Y],
+          isUp: true,
+          renderer: <GrabberMonkey />,
+        },
+        feedMonkey: { renderer: <FeedMonkey /> },
       }}
     ></GameEngine>
   );
