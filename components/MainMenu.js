@@ -38,7 +38,7 @@ const MainMenu = () => {
           <Link to="/levelselect">
             <Text style={[styles.buttons, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>Game Select</Text>
           </Link>
-          <Link to="/profile">
+          <Link to="/profilepage">
             <Text style={[styles.buttons, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>Profile</Text>
           </Link>
         </View>
