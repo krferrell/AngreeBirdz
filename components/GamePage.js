@@ -21,8 +21,7 @@ const GamePage = () => {
         obstacle1: { position: [0, 350], size: [50, 150], renderer: <BoxObstacle/> },
         obstacle2: { position: [0, 50], size: [20, 200], renderer: <BoxObstacle/> },
         ground: { position: [0, 0], size: [screenWidth, 5], renderer: <BoxObstacle/> },
-        birdGE1: { position: [100, 150], diameter: 35, renderer: <Bird/>}, 
-        xForce: { renderer: <TextView />}
+        birdGE1: { position: [100, 150], diameter: 35, renderer: <Bird/>},
       }}
     ></GameEngine>
   )
