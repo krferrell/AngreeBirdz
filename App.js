@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { NativeRouter, Route } from 'react-router-native';
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import { LevelSelect, MainMenu, SignIn } from './components';
+import { LevelSelect, MainMenu, ProfilePage } from './components';
 import randomGameSelect from './utils/randomGameSelect';
 
 export default function App() {
@@ -14,7 +14,7 @@ export default function App() {
         <View style={styles.container}>
           <Route component={randomGameSelect} path="/game" exact />
           <Route component={LevelSelect} path="/levelselect" exact />
-          <Route component={SignIn} path="/profile" exact />
+          <Route component={ProfilePage} path="/profilepage" exact />
           <Route component={MainMenu} path="/" exact />
         </View>
         <StatusBar hidden/>

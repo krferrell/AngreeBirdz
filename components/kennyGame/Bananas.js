@@ -1,10 +1,10 @@
 import React from "react";
 import { StyleSheet, View, Image } from "react-native";
 
-export default KBird = ({ position }) => {
+export default Bananas = ({ position }) => {
   return (
     <View
-    style={styles({ x: position[0], y: position[1] }).bird}
+    style={styles({ x: position[0], y: position[1] }).bananas}
     >
       <Image
         source={require("../../assets/monkeyGame/bananas.png")}
@@ -16,11 +16,10 @@ export default KBird = ({ position }) => {
 
 const styles = (props) =>
   StyleSheet.create({
-    bird: {
+    bananas: {
       height: 60,
       width: 75,
       borderRadius: 50,
-      
       top: props.x,
       left: props.y,
       justifyContent: "center",

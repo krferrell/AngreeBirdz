@@ -2,11 +2,11 @@
 import LevelSelect from './LevelSelect';
 import MainMenu from './MainMenu';
 import MenuModal from './MenuModal';
-import SignIn from './SignIn';
+import ProfilePage from './ProfilePage';
 
 export {
     LevelSelect,
     MainMenu,
     MenuModal,
-    SignIn
+    ProfilePage
 }
