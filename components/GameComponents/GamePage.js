@@ -8,7 +8,7 @@ const GamePage = () => {
 
   let screenWidth = Dimensions.get("screen").width;
   let screenHeight = Dimensions.get("screen").height;
-
+  
   return (
     <GameEngine
       systems={[]}

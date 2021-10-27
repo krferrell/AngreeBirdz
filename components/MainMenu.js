@@ -2,13 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View, SafeAreaView } from "react-native";
 import { Link } from "react-router-native";
 import * as Font from "expo-font";
-import { useDispatch } from 'react-redux';
-import { changeGame } from '../redux/gameState';
 
 const MainMenu = () => {
   const [fontLoading, setFontLoading] = useState(true);
-  
-  const dispatch = useDispatch();
 
   let customFonts = {
     SchoolBell: require("../assets/fonts/Schoolbell-Regular.ttf"),
@@ -21,7 +17,6 @@ const MainMenu = () => {
 
   useEffect(() => {
     _loadFontsAsync();
-    dispatch(changeGame("PLAY"));
   }, []);
 
   return (
@@ -32,7 +27,12 @@ const MainMenu = () => {
           <Text style={[styles.title, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>Weird Games</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Link to="/game">
+          <Link 
+            to={{
+              pathname: '/game',
+              state: { chosenGame: null }
+            }}
+          >
             <Text style={[styles.buttons, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>Start</Text>
           </Link>
           <Link to="/levelselect">
