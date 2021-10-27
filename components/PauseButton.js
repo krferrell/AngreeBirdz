@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         width: 40,
         position: 'absolute',
         top: 10,
-        left: screenWidth - 160
+        left: screenWidth - 140
     },
     pauseBtnImg: {
         height: 40,
