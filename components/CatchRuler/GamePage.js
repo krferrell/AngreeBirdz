@@ -24,8 +24,6 @@ const CatchRuler = () => {
     touches.filter(t => t.type === "press").forEach(t => {
       let xPress = t.event.locationX
       let yPress = t.event.locationY
-      console.log('rulerY', entities.ruler.position[0])
-      console.log('yPress', yPress)
 
       if(
         (xPress >= entities.ruler.position[1] && 
