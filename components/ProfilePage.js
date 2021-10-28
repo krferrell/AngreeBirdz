@@ -7,32 +7,66 @@ import {
   Button,
   SafeAreaView,
   TextInput,
-  onPress,
   Pressable,
+  Platform
 } from "react-native";
 import { Link } from "react-router-native";
 import * as Font from "expo-font";
 import { render } from "react-dom";
+import * as ImagePicker from 'expo-image-picker';
 
-const ProfilePage = () => {
+const ProfilePage = ({ fontLoading }) => {
   const [text, onChangeText] = useState("New name?");
   const [avatar, setAvatar] = useState(require("../assets/defaultAvatar.png"));
+  const [customImg, setCustomImg] = useState(null);
+//Image Picker 
+  const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
+      }
+    })();
+  }, []);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+      setCustomImg(true);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.background}>
-      {/* <Image source={require("../assets/cloudBackground.png")} /> */}
+      <Image source={require("../assets/cloudBackground.png")} />
       <View style={[styles.container, styles.shadowBox]}>
-        <Text style={[styles.title, styles.shadowText]}>Profile</Text>
+        <Text style={[styles.title, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>Profile</Text>
 
         <View style={styles.innerContainer}>
           <View style={styles.leftContainer}>
-            <Text style={[styles.nameProfile, styles.shadowText]}>Name</Text>
-            <Image style={[styles.avatar]} source={avatar} />
+            <Text style={[styles.nameProfile, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>Name</Text>
+            {
+              customImg ? 
+              <Image source={{ uri: image }} style={styles.avatar} /> : 
+              <Image style={[styles.avatar]} source={avatar} />
+            }
+            <Button title="Change Picture" onPress={pickImage} style={styles.picButton, {fontFamily: !fontLoading ? "SchoolBell" : null}}/>
           </View>
 
           <View style={styles.rightContainer}>
             <View style={styles.editNameContainer}>
-              <Text style={[styles.editName, styles.shadowText]}>
+              <Text style={[styles.editName, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>
                 {"\u2022"}Edit Name:
               </Text>
               <TextInput
@@ -41,36 +75,51 @@ const ProfilePage = () => {
                 value={text}
               />
             </View>
-            <Text style={[styles.editName, styles.shadowText]}>
+            <Text style={[styles.editName, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>
               {"\u2022"}Take picture
             </Text>
-            <Text style={[styles.editName, styles.shadowText]}>
+            <Text style={[styles.editName, styles.shadowText, styles.or, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>
+              OR
+            </Text>
+            <Text style={[styles.editName, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>
               {"\u2022"}Pick An Avatar
             </Text>
             <View style={[styles.avatarPick, styles.shadowText]}>
               <Pressable
-                onPress={() => setAvatar(require("../assets/Dyno.jpg"))}>
+                onPress={() => {
+                  setAvatar(require("../assets/Dyno.jpg"))
+                  setCustomImg(false)
+                }}>
                 <Image
                   style={styles.difAvatar}
                   source={require("../assets/Dyno.jpg")}
                 />
               </Pressable>
               <Pressable
-                onPress={() => setAvatar(require("../assets/cat8bit.gif"))}>
+                onPress={() => {
+                  setAvatar(require("../assets/cat8bit.gif"))
+                  setCustomImg(false)
+                }}>
                 <Image
                   style={styles.difAvatar}
                   source={require("../assets/cat8bit.gif")}
                 />
               </Pressable>
               <Pressable
-                onPress={() => setAvatar(require("../assets/dog8bit.jpeg"))}>
+                onPress={() => {
+                  setAvatar(require("../assets/dog8bit.jpeg"))
+                  setCustomImg(false)
+                }}>
                 <Image
                   style={styles.difAvatar}
                   source={require("../assets/dog8bit.jpeg")}
                 />
               </Pressable>
               <Pressable
-                onPress={() => setAvatar(require("../assets/bear8bit.jpeg"))}>
+                onPress={() => {
+                  setAvatar(require("../assets/bear8bit.jpeg"))
+                  setCustomImg(false)
+                }}>
                 <Image
                   style={styles.difAvatar}
                   source={require("../assets/bear8bit.jpeg")}
@@ -97,9 +146,6 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    // borderWidth: 1,
-    // borderStyle: "dotted",
-    // borderColor: "black",
     display: "flex",
     backgroundColor: "#377F9D",
     justifyContent: "space-between",
@@ -116,27 +162,18 @@ const styles = StyleSheet.create({
   innerContainer: {
     width: "95%",
     height: "70%",
-    // borderWidth: 1,
-    // borderStyle: "dotted",
-    // borderColor: "white",
     display: "flex",
     flexDirection: "row",
   },
 
   leftContainer: {
     width: "80%",
-    // borderWidth: 1,
-    // borderStyle: "solid",
-    // borderColor: "black",
     display: "flex",
     flexDirection: "column",
     width: "30%",
   },
 
   rightContainer: {
-    // borderWidth: 1,
-    // borderStyle: "solid",
-    // borderColor: "red",
     display: "flex",
     flexDirection: "column",
     width: "70%",
@@ -148,9 +185,6 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    // borderWidth: 1,
-    // borderStyle: "dotted",
-    // borderColor: "black",
     fontSize: 50,
     paddingTop: "4%",
     textDecorationLine: "underline",
@@ -169,11 +203,10 @@ const styles = StyleSheet.create({
   editNameContainer: {
     display: "flex",
     flexDirection: "row",
-    // justifyContent: "center"
   },
 
   editName: {
-    marginLeft: 10,
+    marginLeft: 30,
     marginTop: 5,
     fontSize: 25,
     paddingTop: "4%",
@@ -181,7 +214,16 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "left",
   },
-
+  or: {
+    marginLeft: 60,
+    marginTop: -12,
+    marginBottom: -22,
+    fontSize: 25,
+    paddingTop: "4%",
+    textDecorationLine: "none",
+    color: "#fff",
+    textAlign: "left",
+  },
   nameInput: {
     height: 40,
     width: 150,
@@ -195,21 +237,16 @@ const styles = StyleSheet.create({
   },
 
   avatarPick: {
-    borderWidth: 1,
-    borderStyle: "dotted",
-    borderColor: "black",
     width: "80%",
+    padding: 1,
+    margin: 2,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
-    // alignSelf: "center",
+    justifyContent: "space-around",
     marginTop: 15,
   },
 
   difAvatar: {
-    //  borderWidth: 1,
-    // borderStyle: "dotted",
-    // borderColor: "black",
     maxHeight: 40,
     maxWidth: 40,
     display: "flex",
@@ -217,8 +254,8 @@ const styles = StyleSheet.create({
   },
 
   avatar: {
-    maxHeight: 100,
-    maxWidth: 100,
+    height: 150,
+    width: 115,
     display: "flex",
     alignSelf: "center",
   },
@@ -236,6 +273,12 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
   },
+
+  picButton: {
+    fontSize: 25,
+    color: "#fff",
+    textAlign: "center",
+  }
 });
 
 export default ProfilePage;
