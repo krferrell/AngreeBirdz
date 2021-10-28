@@ -6,11 +6,11 @@ import { useDispatch } from 'react-redux';
 import { changeGame } from '../redux/gameState';
 
 // Games
-import GamePage from '../components/GameComponents/GamePage';
+import CatchRuler from '../components/CatchRuler/GamePage';
 import KGamePage from '../components/kennyGame/KGameEngine';
 
 export let gamesList = [
-    <GamePage name='Knight Slayer' />, 
+    <CatchRuler name='Catch the Ruler' />, 
     <KGamePage name='Bananas for Bananas' />,
 ];
 
