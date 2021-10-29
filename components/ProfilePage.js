@@ -8,26 +8,30 @@ import {
   SafeAreaView,
   TextInput,
   Pressable,
-  Platform
+  Platform,
 } from "react-native";
 import { Link } from "react-router-native";
 import * as Font from "expo-font";
 import { render } from "react-dom";
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from "expo-image-picker";
+import arrow_logo from "../assets/arrow.png";
 
 const ProfilePage = ({ fontLoading }) => {
-  const [text, onChangeText] = useState("New name?");
+  const [name, setName] = useState("Name");
   const [avatar, setAvatar] = useState(require("../assets/defaultAvatar.png"));
   const [customImg, setCustomImg] = useState(null);
-//Image Picker 
+  //Image Picker
   const [image, setImage] = useState(null);
+
+  let preName
 
   useEffect(() => {
     (async () => {
-      if (Platform.OS !== 'web') {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
+      if (Platform.OS !== "web") {
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert("Sorry, we need camera roll permissions to make this work!");
         }
       }
     })();
@@ -51,45 +55,129 @@ const ProfilePage = ({ fontLoading }) => {
     <SafeAreaView style={styles.background}>
       <Image source={require("../assets/cloudBackground.png")} />
       <View style={[styles.container, styles.shadowBox]}>
-        <Text style={[styles.title, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>Profile</Text>
+      <Link to="/">
+          <Text
+            style={[styles.text, styles.shadowText, {position: "absolute", left: 155, top: 45}]}
+          >
+            Back to home
+          </Text>
+        </Link>
+        <Text
+          style={[
+            styles.title,
+            styles.shadowText,
+            { fontFamily: !fontLoading ? "SchoolBell" : null },
+          ]}
+        >
+          Profile
+        </Text>
 
         <View style={styles.innerContainer}>
           <View style={styles.leftContainer}>
-            <Text style={[styles.nameProfile, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>Name</Text>
-            {
-              customImg ? 
-              <Image source={{ uri: image }} style={styles.avatar} /> : 
+            <Text
+              style={[
+                styles.nameProfile,
+                styles.shadowText,
+                { fontFamily: !fontLoading ? "SchoolBell" : null },
+              ]}
+            >
+              {name}
+            </Text>
+            {customImg ? (
+              <Image source={{ uri: image }} style={styles.avatar} />
+            ) : (
               <Image style={[styles.avatar]} source={avatar} />
-            }
-            <Button title="Change Picture" onPress={pickImage} style={styles.picButton, {fontFamily: !fontLoading ? "SchoolBell" : null}}/>
+            )}
+            <Pressable
+              title="Change Picture"
+              onPress={pickImage}
+              style={
+                (styles.picButton,
+                { fontFamily: !fontLoading ? "SchoolBell" : null })
+              }
+            >
+              <Text
+                style={[
+                  styles.text,
+                  { textAlign: "center", display: "flex", marginTop: 5 },
+                ]}
+              >
+                Change Picture
+              </Text>
+            </Pressable>
           </View>
 
           <View style={styles.rightContainer}>
             <View style={styles.editNameContainer}>
-              <Text style={[styles.editName, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>
+              <Text
+                style={[
+                  styles.editName,
+                  styles.shadowText,
+                  { fontFamily: !fontLoading ? "SchoolBell" : null },
+                ]}
+              >
                 {"\u2022"}Edit Name:
               </Text>
+
               <TextInput
-                style={styles.nameInput}
-                onChangeText={onChangeText}
-                value={text}
+                style={[
+                  styles.nameInput,
+                  { fontFamily: !fontLoading ? "SchoolBell" : null },
+                ]}
+                placeholder={"New name?"}
+                onChangeText={(value) => {preName=value}}
               />
+              <Pressable
+                title={"save"}
+                onPress={() => {
+                  setName(preName);
+                }}
+                style={[
+                  styles.saveButton,
+                  { fontFamily: !fontLoading ? "SchoolBell" : null },
+                ]}
+              >
+                <Image
+                  source={require("../assets/arrow.png")}
+                  style={{ height: 25, width: 35 }}
+                />
+              </Pressable>
             </View>
-            <Text style={[styles.editName, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>
-              {"\u2022"}Take picture
+            <Text
+              style={[
+                styles.editName,
+                styles.shadowText,
+                { fontFamily: !fontLoading ? "SchoolBell" : null },
+              ]}
+            >
+              {"\u2022"}Take Picture
             </Text>
-            <Text style={[styles.editName, styles.shadowText, styles.or, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>
+            <Text
+              style={[
+                styles.editName,
+                styles.shadowText,
+                styles.or,
+                { fontFamily: !fontLoading ? "SchoolBell" : null },
+              ]}
+            >
               OR
             </Text>
-            <Text style={[styles.editName, styles.shadowText, {fontFamily: !fontLoading ? "SchoolBell" : null}]}>
+            <Text
+              style={[
+                styles.editName,
+                styles.shadowText,
+                { fontFamily: !fontLoading ? "SchoolBell" : null },
+              ]}
+            >
               {"\u2022"}Pick An Avatar
             </Text>
             <View style={[styles.avatarPick, styles.shadowText]}>
               <Pressable
                 onPress={() => {
-                  setAvatar(require("../assets/Dyno.jpg"))
-                  setCustomImg(false)
-                }}>
+                  setAvatar(require("../assets/Dyno.jpg"));
+                  setCustomImg(false);
+                }}
+              >
                 <Image
                   style={styles.difAvatar}
                   source={require("../assets/Dyno.jpg")}
@@ -97,9 +185,10 @@ const ProfilePage = ({ fontLoading }) => {
               </Pressable>
               <Pressable
                 onPress={() => {
-                  setAvatar(require("../assets/cat8bit.gif"))
-                  setCustomImg(false)
-                }}>
+                  setAvatar(require("../assets/cat8bit.gif"));
+                  setCustomImg(false);
+                }}
+              >
                 <Image
                   style={styles.difAvatar}
                   source={require("../assets/cat8bit.gif")}
@@ -107,9 +196,10 @@ const ProfilePage = ({ fontLoading }) => {
               </Pressable>
               <Pressable
                 onPress={() => {
-                  setAvatar(require("../assets/dog8bit.jpeg"))
-                  setCustomImg(false)
-                }}>
+                  setAvatar(require("../assets/dog8bit.jpeg"));
+                  setCustomImg(false);
+                }}
+              >
                 <Image
                   style={styles.difAvatar}
                   source={require("../assets/dog8bit.jpeg")}
@@ -117,9 +207,10 @@ const ProfilePage = ({ fontLoading }) => {
               </Pressable>
               <Pressable
                 onPress={() => {
-                  setAvatar(require("../assets/bear8bit.jpeg"))
-                  setCustomImg(false)
-                }}>
+                  setAvatar(require("../assets/bear8bit.jpeg"));
+                  setCustomImg(false);
+                }}
+              >
                 <Image
                   style={styles.difAvatar}
                   source={require("../assets/bear8bit.jpeg")}
@@ -182,6 +273,7 @@ const styles = StyleSheet.create({
 
   pictureContainer: {
     marginBottom: "10%",
+    top: 50,
   },
 
   title: {
@@ -193,42 +285,60 @@ const styles = StyleSheet.create({
 
   nameProfile: {
     textAlign: "center",
-    fontSize: 40,
+    fontSize: 35,
     paddingTop: "4%",
     textDecorationLine: "none",
     color: "#fff",
     padding: 5,
   },
 
+  avatar: {
+    height: 150,
+    width: 115,
+    display: "flex",
+    alignSelf: "center",
+  },
+
+  text: {
+    // marginTop: -10,
+    fontFamily: "SchoolBell",
+    color: "#fff",
+    fontSize: 15,
+    textDecorationLine: "underline",
+  },
+
   editNameContainer: {
     display: "flex",
     flexDirection: "row",
+    marginBottom: -15,
   },
 
   editName: {
     marginLeft: 30,
-    marginTop: 5,
-    fontSize: 25,
+    marginTop: 2,
+    fontSize: 30,
     paddingTop: "4%",
     textDecorationLine: "none",
     color: "#fff",
     textAlign: "left",
   },
+  
   or: {
     marginLeft: 60,
     marginTop: -12,
     marginBottom: -22,
-    fontSize: 25,
+    fontSize: 23,
     paddingTop: "4%",
     textDecorationLine: "none",
     color: "#fff",
     textAlign: "left",
   },
   nameInput: {
-    height: 40,
-    width: 150,
+    height: 30,
+    width: 100,
     margin: 5,
-    marginTop: 12,
+    marginRight: 1,
+    marginTop: 20,
     borderWidth: 1,
     padding: 5,
     backgroundColor: "white",
@@ -247,15 +357,8 @@ const styles = StyleSheet.create({
   },
 
   difAvatar: {
-    maxHeight: 40,
-    maxWidth: 40,
-    display: "flex",
-    alignSelf: "center",
-  },
-
-  avatar: {
-    height: 150,
-    width: 115,
+    height: 50,
+    width: 50,
     display: "flex",
     alignSelf: "center",
   },
@@ -278,7 +381,25 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: "#fff",
     textAlign: "center",
-  }
+    backgroundColor: "white",
+    height: 25,
+    width: 35,
+    display: "flex",
+    alignSelf: "center",
+    marginTop: 15,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: "black",
+  },
+
+  saveButton: {
+    height: 25,
+    width: 35,
+    display: "flex",
+    alignSelf: "center",
+    marginTop: 15,
+    borderRadius: 15,
+  },
 });
 
 export default ProfilePage;
