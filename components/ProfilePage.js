@@ -300,7 +300,6 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    // marginTop: -10,
     fontFamily: "SchoolBell",
     color: "#fff",
     fontSize: 15,
