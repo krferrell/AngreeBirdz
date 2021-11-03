@@ -15,16 +15,26 @@ import * as Font from "expo-font";
 import { render } from "react-dom";
 import * as ImagePicker from "expo-image-picker";
 import arrow_logo from "../assets/arrow.png";
+import { useSelector, useDispatch } from 'react-redux';
+import { setUserName, setUserPic } from "../redux/userState";
+import {
+  dino64,
+  cat64,
+  dog64,
+  bear64
+} from "../assets/base64";
 
-const ProfilePage = ({ fontLoading }) => {
-  const [name, setName] = useState("Name");
-  const [avatar, setAvatar] = useState(require("../assets/defaultAvatar.png"));
+const ProfilePage = () => {
+
+  const dispatch = useDispatch();
+
+  const { userName, userPic } = useSelector(state => state.userState);
+
   const [customImg, setCustomImg] = useState(null);
-  //Image Picker
-  const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(null);
 
-  let preName
-
+  let preName;
+  
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -46,8 +56,10 @@ const ProfilePage = ({ fontLoading }) => {
     });
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      setLoading(true);
       setCustomImg(true);
+      dispatch(setUserPic(result.uri));
+      setLoading(false);
     }
   };
 
@@ -66,10 +78,10 @@ const ProfilePage = ({ fontLoading }) => {
           style={[
             styles.title,
             styles.shadowText,
-            { fontFamily: !fontLoading ? "SchoolBell" : null },
+            { fontFamily: "SchoolBell" },
           ]}
         >
-          Profile
+          Profile Setup
         </Text>
 
         <View style={styles.innerContainer}>
@@ -78,22 +90,24 @@ const ProfilePage = ({ fontLoading }) => {
               style={[
                 styles.nameProfile,
                 styles.shadowText,
-                { fontFamily: !fontLoading ? "SchoolBell" : null },
+                { fontFamily: "SchoolBell" },
               ]}
             >
-              {name}
+              {userName !== "null" ? userName : <Text>Name</Text>}
             </Text>
-            {customImg ? (
-              <Image source={{ uri: image }} style={styles.avatar} />
-            ) : (
-              <Image style={[styles.avatar]} source={avatar} />
-            )}
+
+            {!loading &&
+              (customImg ? 
+              <Image style={styles.avatar} source={{ uri: userPic }} /> : 
+              <Image style={styles.avatar} source={{ uri: userPic }} />)
+            }
+
             <Pressable
               title="Change Picture"
               onPress={pickImage}
               style={
                 (styles.picButton,
-                { fontFamily: !fontLoading ? "SchoolBell" : null })
+                { fontFamily: "SchoolBell" })
               }
             >
               <Text
@@ -113,7 +127,7 @@ const ProfilePage = ({ fontLoading }) => {
                 style={[
                   styles.editName,
                   styles.shadowText,
-                  { fontFamily: !fontLoading ? "SchoolBell" : null },
+                  { fontFamily: "SchoolBell" },
                 ]}
               >
                 {"\u2022"}Edit Name:
@@ -122,19 +136,19 @@ const ProfilePage = ({ fontLoading }) => {
               <TextInput
                 style={[
                   styles.nameInput,
-                  { fontFamily: !fontLoading ? "SchoolBell" : null },
+                  { fontFamily: "SchoolBell" },
                 ]}
                 placeholder={"New name?"}
-                onChangeText={(value) => {preName=value}}
+                onChangeText={value => preName = value }
               />
               <Pressable
                 title={"save"}
                 onPress={() => {
-                  setName(preName);
+                  dispatch(setUserName(preName));
                 }}
                 style={[
                   styles.saveButton,
-                  { fontFamily: !fontLoading ? "SchoolBell" : null },
+                  { fontFamily: "SchoolBell" },
                 ]}
               >
                 <Image
@@ -147,7 +161,7 @@ const ProfilePage = ({ fontLoading }) => {
               style={[
                 styles.editName,
                 styles.shadowText,
-                { fontFamily: !fontLoading ? "SchoolBell" : null },
+                { fontFamily: "SchoolBell"},
               ]}
             >
               {"\u2022"}Take Picture
@@ -157,7 +171,7 @@ const ProfilePage = ({ fontLoading }) => {
                 styles.editName,
                 styles.shadowText,
                 styles.or,
-                { fontFamily: !fontLoading ? "SchoolBell" : null },
+                { fontFamily: "SchoolBell" },
               ]}
             >
               OR
@@ -166,7 +180,7 @@ const ProfilePage = ({ fontLoading }) => {
               style={[
                 styles.editName,
                 styles.shadowText,
-                { fontFamily: !fontLoading ? "SchoolBell" : null },
+                { fontFamily: "SchoolBell" },
               ]}
             >
               {"\u2022"}Pick An Avatar
@@ -174,46 +188,46 @@ const ProfilePage = ({ fontLoading }) => {
             <View style={[styles.avatarPick, styles.shadowText]}>
               <Pressable
                 onPress={() => {
-                  setAvatar(require("../assets/Dyno.jpg"));
+                  dispatch(setUserPic(dino64));
                   setCustomImg(false);
                 }}
               >
                 <Image
                   style={styles.difAvatar}
-                  source={require("../assets/Dyno.jpg")}
+                  source={{ uri: dino64 }}
                 />
               </Pressable>
               <Pressable
                 onPress={() => {
-                  setAvatar(require("../assets/cat8bit.gif"));
+                  dispatch(setUserPic(cat64));
                   setCustomImg(false);
                 }}
               >
                 <Image
                   style={styles.difAvatar}
-                  source={require("../assets/cat8bit.gif")}
+                  source={{ uri: cat64 }}
                 />
               </Pressable>
               <Pressable
                 onPress={() => {
-                  setAvatar(require("../assets/dog8bit.jpeg"));
+                  dispatch(setUserPic(dog64));
                   setCustomImg(false);
                 }}
               >
                 <Image
                   style={styles.difAvatar}
-                  source={require("../assets/dog8bit.jpeg")}
+                  source={{ uri: dog64 }}
                 />
               </Pressable>
               <Pressable
                 onPress={() => {
-                  setAvatar(require("../assets/bear8bit.jpeg"));
+                  dispatch(setUserPic(bear64))
                   setCustomImg(false);
                 }}
               >
                 <Image
                   style={styles.difAvatar}
-                  source={require("../assets/bear8bit.jpeg")}
+                  source={{ uri: bear64 }}
                 />
               </Pressable>
             </View>
