@@ -17,16 +17,34 @@ const MenuModal = () => {
     return (
         <View style={ styles.modalPageBackground}>
             <View style={ styles.modalContainer}>
-                <Pressable
-                    style={styles.playButton} 
-                    onPress={() => dispatch(changeGame("PLAY"))}
-                >
-                    {
-                        gameState === 'PAUSE' ? 
-                        <Text style={[styles.modalText, styles.addShadow]}>Resume?</Text> :
+                {
+                    gameState === 'WIN' &&
+                    <Text style={[styles.modalText, styles.winLoseText, styles.addShadow]}>You win!</Text>
+                }
+
+                {
+                    gameState === 'LOSE' &&
+                    <Text style={[styles.modalText, styles.winLoseText, styles.addShadow]}>You lose!</Text>
+                }
+
+                {
+                    gameState === 'PAUSE' ? 
+                    <Pressable
+                        style={styles.playButton} 
+                        onPress={() => dispatch(changeGame("PLAY"))}
+                    >
+                        <Text style={[styles.modalText, styles.addShadow]}>Resume?</Text> 
+                    </Pressable> :
+                    <Pressable
+                        style={styles.playButton} 
+                        onPress={() => {
+                            dispatch(changeGame("PLAY"));
+                        }}
+                    >
                         <Text style={[styles.modalText, styles.addShadow]}>Replay?</Text>
-                    }
-                </Pressable>
+                    </Pressable>
+                }
+
                 <Link to="/">
                     <Text style={[styles.modalText, styles.addShadow]}>Home Page</Text>
                 </Link>
@@ -78,6 +96,12 @@ const styles = StyleSheet.create({
         color: "#fff",
         color: 'white',
     },
+
+    winLoseText: {
+        fontSize: 60,
+        borderBottomWidth: 3,
+        borderBottomColor: 'white',
+    }
 });
 
 export default MenuModal;

@@ -12,16 +12,16 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-      <NativeRouter>
-        <View style={styles.container}>
-          <Route component={randomGameSelect} path="/game" exact />
-          <Route component={LevelSelect} path="/levelselect" exact />
-          <Route component={ProfilePage} path="/profilepage" exact />
-          <Route component={MainMenu} path="/" exact />
-        </View>
-        <StatusBar hidden/>
-      </NativeRouter>
-    </PersistGate>
+        <NativeRouter>
+          <View style={styles.container}>
+            <Route component={randomGameSelect} path="/game" exact />
+            <Route component={LevelSelect} path="/levelselect" exact />
+            <Route component={ProfilePage} path="/profilepage" exact />
+            <Route component={MainMenu} path="/" exact />
+          </View>
+          <StatusBar hidden/>
+        </NativeRouter>
+      </PersistGate>
     </Provider>
   );
 };
