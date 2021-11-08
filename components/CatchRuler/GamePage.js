@@ -38,7 +38,7 @@ const CatchRuler = () => {
 
     // Check to see if the user has missed
     if(entities.ruler.position[1] > screenWidth){
-      dispatch(changeGame("LOOSE"))
+      dispatch(changeGame("LOSE"))
     }
 
     return entities;
