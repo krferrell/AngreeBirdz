@@ -31,13 +31,13 @@ const randomGameSelect = () => {
     const chooseGame = () => {
         let randomNumber;
         game = chosenGame;
-
+        
         if(game === null){
             randomNumber = randomPick(gamesList.length);
         }else{
             randomNumber = game
         }
-
+        
         return (
             <>
                 {gamesList[randomNumber]}
@@ -46,7 +46,9 @@ const randomGameSelect = () => {
         )
     }
 
-    return (<>{chooseGame()}</>)
+    return (
+        <>{chooseGame()}</>
+    )
 }
 
 export default randomGameSelect;
