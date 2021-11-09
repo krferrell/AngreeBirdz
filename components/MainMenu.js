@@ -4,8 +4,11 @@ import { Link } from "react-router-native";
 import { useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { useFonts } from 'expo-font';
+import SplashScreen from './SplashScreen';
 
 const MainMenu = () => {
+
+  const [ splashScreenGone, setSplashScreenGone ] = useState(false);
   
   const { userName } = useSelector(state => state.userState);
 
@@ -15,8 +18,16 @@ const MainMenu = () => {
     SchoolBell: require("../assets/fonts/Schoolbell-Regular.ttf"),
   });
 
+  const splashScreenTimer = () => {
+    setTimeout(() => {
+      setSplashScreenGone(true)
+    }, 2000);
+  }
+
   useEffect(() => {
-    if(userName === "null" && loaded){
+    splashScreenTimer()
+
+    if(userName === "null" && loaded && splashScreenGone){
       history.push("/profilepage")
     }
   }, [loaded]);
@@ -24,6 +35,15 @@ const MainMenu = () => {
   return (
     <SafeAreaView style={styles.background}>
       <Image source={require("../assets/cloudBackground.png")} />
+      <View style={{position: "absolute", right: 50, bottom: 15}} >
+      <Link to="/splashscreen">
+          <Text
+            style={styles.credits, {fontFamily: loaded ? "SchoolBell" : null}}
+          >
+            Credits
+          </Text>
+        </Link>
+        </View>
       <View style={[styles.container, styles.shadowBox]}>
         <View>
           <Text style={[styles.title, styles.shadowText, {fontFamily: loaded ? "SchoolBell" : null}]}>Weird Games</Text>
@@ -45,6 +65,7 @@ const MainMenu = () => {
           </Link>
         </View>
       </View>
+      {!splashScreenGone && <SplashScreen />}
     </SafeAreaView>
   );
 };
@@ -109,6 +130,9 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 10,
   },
+  credits: {
+    fontSize: 70
+  }
 });
 
 export default MainMenu;
