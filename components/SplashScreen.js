@@ -16,7 +16,6 @@ import kendrick8bit from "../assets/kendrick8bit.png";
 const SplashScreen = () => {
   return (
     <SafeAreaView style={styles.background}>
-      {/* <Image source={require("../assets/cloudBackground.png")} /> */}
       <View style={{ position: "absolute", right: 55, top: 35 }}>
         <Link to="/">
           <Text style={[styles.text, styles.shadowText]}>Back to home</Text>
