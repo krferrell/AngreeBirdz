@@ -5,7 +5,8 @@ import GrabberMonkey from "./GrabberMonkey";
 import { Dimensions } from "react-native";
 import { Gyroscope } from "expo-sensors";
 import FeedMonkey from "./FeedMonkey";
-import { checkLose, checkWin } from "./gameloops";
+import { useDispatch } from "react-redux";
+import { changeGame } from "../../redux/gameState";
 
 const KGamePage = () => {
   let screenHeight = Dimensions.get("screen").height;
@@ -20,6 +21,8 @@ const KGamePage = () => {
   let grabberMonkey2Y = screenWidth - 370;
   let grabberMonkey3X = screenHeight;
   let grabberMonkey3Y = screenWidth / 3;
+
+  const dispatch = useDispatch()
 
   const [data, setData] = useState({ x: 0, y: 0 });
   const [subscription, setSubscription] = useState(null);
@@ -102,6 +105,45 @@ const KGamePage = () => {
       }
     }
 
+    return entities;
+  };
+
+  const checkLose = (entities) => {
+  
+    let bananas = entities.bananas;
+    let monkey1 = entities.grabberMonkey1;
+    let monkey2 = entities.grabberMonkey2;
+    let monkey3 = entities.grabberMonkey3;
+  
+    if (
+      (bananas.position[0] < monkey1.position[0] + 85 &&
+        bananas.position[0] > monkey1.position[0] - 90 &&
+        bananas.position[1] > monkey1.position[1] - 45 &&
+        bananas.position[1] < monkey1.position[1] + 45) ||
+      (bananas.position[0] < monkey2.position[0] + 85 &&
+        bananas.position[0] > monkey2.position[0] - 90 &&
+        bananas.position[1] > monkey2.position[1] - 45 &&
+        bananas.position[1] < monkey2.position[1] + 45) ||
+      (bananas.position[0] < monkey3.position[0] + 85 &&
+        bananas.position[0] > monkey3.position[0] - 90 &&
+        bananas.position[1] > monkey3.position[1] - 45 &&
+        bananas.position[1] < monkey3.position[1] + 45)
+    ) {
+      dispatch(changeGame("LOSE"));
+    }
+  
+    return entities;
+  };
+
+  const checkWin = (entities) => {
+    let bananas = entities.bananas;
+    if (
+      bananas.position[0] > screenHeight / 2 - 20 &&
+      bananas.position[0] < screenHeight / 2 + 55 &&
+      bananas.position[1] > screenWidth - 100
+    ) {
+      dispatch(changeGame("WIN"));
+    }
     return entities;
   };
 
