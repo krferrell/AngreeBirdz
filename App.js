@@ -5,7 +5,7 @@ import { NativeRouter, Route } from 'react-router-native';
 import { Provider } from 'react-redux';
 import {store, persistor }  from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
-import { LevelSelect, MainMenu, ProfilePage } from './components';
+import { LevelSelect, MainMenu, ProfilePage, SplashScreen } from './components';
 import randomGameSelect from './utils/randomGameSelect';
 
 export default function App() {
@@ -18,6 +18,7 @@ export default function App() {
             <Route component={LevelSelect} path="/levelselect" exact />
             <Route component={ProfilePage} path="/profilepage" exact />
             <Route component={MainMenu} path="/" exact />
+            <Route component={SplashScreen} path="/splashscreen" exact />
           </View>
           <StatusBar hidden/>
         </NativeRouter>
