@@ -3,12 +3,11 @@ import { View, Text, Pressable } from 'react-native';
 import { Dimensions, StyleSheet,  } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeGame } from '../redux/gameState';
-import { Link } from "react-router-native";
 
 let screenWidth = Dimensions.get("screen").width;
 let screenHeight = Dimensions.get("screen").height;
 
-const MenuModal = () => {
+const MenuModal = ({ navigation }) => {
 
     const gameState = useSelector(state => state.gameState.value);
 
@@ -31,7 +30,9 @@ const MenuModal = () => {
                     gameState === 'PAUSE' ? 
                     <Pressable
                         style={styles.playButton} 
-                        onPress={() => dispatch(changeGame("PLAY"))}
+                        onPress={() => {
+                            dispatch(changeGame("PLAY"))
+                        }}
                     >
                         <Text style={[styles.modalText, styles.addShadow]}>Resume?</Text> 
                     </Pressable> :
@@ -41,16 +42,17 @@ const MenuModal = () => {
                             dispatch(changeGame("PLAY"));
                         }}
                     >
-                        <Text style={[styles.modalText, styles.addShadow]}>Replay?</Text>
+                        <Text style={[styles.modalText, styles.addShadow]}>"Replay?"</Text>
                     </Pressable>
                 }
 
-                <Link to="/">
+                <Pressable onPress={() => navigation.navigate('Main Menu')}>
                     <Text style={[styles.modalText, styles.addShadow]}>Home Page</Text>
-                </Link>
-                <Link to="/levelselect">
+                </Pressable>
+
+                <Pressable onPress={() => navigation.navigate('Level Select')}>
                     <Text style={[styles.modalText, styles.addShadow]}>Level Select Page</Text>
-                </Link>
+                </Pressable>
             </View>
         </View>
     );
