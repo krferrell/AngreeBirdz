@@ -4,17 +4,12 @@ import {
   Text,
   View,
   Image,
-  Button,
   SafeAreaView,
   TextInput,
   Pressable,
   Platform,
 } from "react-native";
-import { Link } from "react-router-native";
-import * as Font from "expo-font";
-import { render } from "react-dom";
 import * as ImagePicker from "expo-image-picker";
-import arrow_logo from "../assets/arrow.png";
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserName, setUserPic } from "../redux/userState";
 import {
@@ -24,7 +19,7 @@ import {
   bear64
 } from "../assets/base64";
 
-const ProfilePage = () => {
+const ProfilePage = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
@@ -67,13 +62,13 @@ const ProfilePage = () => {
     <SafeAreaView style={styles.background}>
       <Image source={require("../assets/cloudBackground.png")} />
       <View style={[styles.container, styles.shadowBox]}>
-      <Link to="/">
+        <Pressable style={styles.backHome} onPress={() => navigation.navigate('Main Menu')}>
           <Text
-            style={[styles.text, styles.shadowText, {position: "absolute", left: 155, top: 45}]}
+            style={[styles.text, styles.shadowText]}
           >
             Back to home
           </Text>
-        </Link>
+        </Pressable>
         <Text
           style={[
             styles.title,
@@ -413,6 +408,12 @@ const styles = StyleSheet.create({
     marginTop: 15,
     borderRadius: 15,
   },
+
+  backHome: {
+    position: "absolute", 
+    right: 55, 
+    top: 30
+  }
 });
 
 export default ProfilePage;
