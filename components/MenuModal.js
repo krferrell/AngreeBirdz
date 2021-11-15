@@ -39,10 +39,17 @@ const MenuModal = ({ navigation }) => {
                     <Pressable
                         style={styles.playButton} 
                         onPress={() => {
+                            if(index >= 0){
+                                index++
+                                history.push("/game", { chosenGame: index });
+                            } else {
+                                console.log('bleh')
+                            }
+
                             dispatch(changeGame("PLAY"));
                         }}
                     >
-                        <Text style={[styles.modalText, styles.addShadow]}>"Replay?"</Text>
+                        <Text style={[styles.modalText, styles.addShadow]}>Replay?</Text>
                     </Pressable>
                 }
 
