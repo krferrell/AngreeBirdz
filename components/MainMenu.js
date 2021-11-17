@@ -30,40 +30,44 @@ const MainMenu = ({ navigation }) => {
   
   return (
     <SafeAreaView style={styles.background}>
-      { splashScreenGone ?
-      <>
-        <Image source={require("../assets/cloudBackground.png")} />
-        <View style={{position: "absolute", right: 50, bottom: 15}} >
-          <Pressable onPress={() => navigation.navigate('Splash Screen')}>
-            <Text
-              style={styles.credits, {fontFamily: loaded ? "SchoolBell" : null}}
-            >
-              Credits
-            </Text>
-          </Pressable>
-        </View>
-        <View style={[styles.container, styles.shadowBox]}>
-          <View>
-            <Text style={[styles.title, styles.shadowText, {fontFamily: loaded ? "SchoolBell" : null}]}>Weird Games</Text>
+      { 
+        splashScreenGone ?
+
+        <>
+          <Image source={require("../assets/cloudBackground.png")} />
+          <View style={{position: "absolute", right: 50, bottom: 15}} >
+            <Pressable onPress={() => navigation.navigate('Splash Screen', { splashScreenGone: splashScreenGone })}>
+              <Text
+                style={styles.credits, {fontFamily: loaded ? "SchoolBell" : null}}
+              >
+                Credits
+              </Text>
+            </Pressable>
           </View>
-          <View style={styles.buttonContainer}>
+          <View style={[styles.container, styles.shadowBox]}>
+            <View>
+              <Text style={[styles.title, styles.shadowText, {fontFamily: loaded ? "SchoolBell" : null}]}>Weird Games</Text>
+            </View>
+            <View style={styles.buttonContainer}>
 
-            <Pressable onPress={() => navigation.navigate('Random Game Select', { chosenGame: null })}>
-              <Text style={[styles.buttons, styles.shadowText, {fontFamily: loaded ? "SchoolBell" : null}]}>Play Games</Text>
-            </Pressable>
+              <Pressable onPress={() => navigation.navigate('Random Game Select', { fromGameSelect: false })}>
+                <Text style={[styles.buttons, styles.shadowText, {fontFamily: loaded ? "SchoolBell" : null}]}>Start</Text>
+              </Pressable>
 
-            <Pressable onPress={() => navigation.navigate('Level Select')}>
-              <Text style={[styles.buttons, styles.shadowText, {fontFamily: loaded ? "SchoolBell" : null}]}>Practice Mode</Text>
-            </Pressable>
+              <Pressable onPress={() => navigation.navigate('Level Select', { fromModal: false })}>
+                <Text style={[styles.buttons, styles.shadowText, {fontFamily: loaded ? "SchoolBell" : null}]}>Game Select</Text>
+              </Pressable>
 
-            <Pressable onPress={() => navigation.navigate('Profile Page')}>
-              <Text style={[styles.buttons, styles.shadowText, {fontFamily: loaded ? "SchoolBell" : null}]}>Edit Profile</Text>
-            </Pressable>
+              <Pressable onPress={() => navigation.navigate('Profile Page')}>
+                <Text style={[styles.buttons, styles.shadowText, {fontFamily: loaded ? "SchoolBell" : null}]}>Profile</Text>
+              </Pressable>
 
-          </View>
-        </View> 
-      </> :
-      <SplashScreen /> }
+            </View>
+          </View> 
+        </> :
+
+        <SplashScreen splashScreenGone={splashScreenGone} /> 
+      }
     </SafeAreaView>
   );
 };

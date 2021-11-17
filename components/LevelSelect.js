@@ -8,10 +8,11 @@ import arrow from '../assets/arrow.png'
 let screenWidth = Dimensions.get("screen").width;
 let screenHeight = Dimensions.get("screen").height;
 
-const LevelSelect = ({ navigation }) => {
+const LevelSelect = ({ navigation, route }) => {
 
     // Sets up the pages of games variable and sets it to the right amount of pages depending on how many games there are and if there will be game pages with only one game
     let gamePages
+
     if(gamesList.length % 2 === 0){
         gamePages = gamesList.length / 2
     }else{
@@ -19,6 +20,8 @@ const LevelSelect = ({ navigation }) => {
     }
 
     const [ page, setPage ] = useState(1);
+
+    const fromModal = route.params.fromModal 
 
     const gamesListView = () => {
         return (
@@ -43,7 +46,7 @@ const LevelSelect = ({ navigation }) => {
                     if((page - 1) * 2 === key || (page - 1) * 2 === key - 1){
                         return(
                             <Pressable
-                                onPress={() => navigation.navigate('Random Game Select', { chosenGame: key })}
+                                onPress={() => navigation.navigate('Random Game Select', { chosenGame: key, fromGameSelect: true })}
                                 key={key}
                             >
                                 <View 
@@ -97,7 +100,11 @@ const LevelSelect = ({ navigation }) => {
                         overflow: 'scroll'
                     }}
                 >{gamesListView()}</View>
-                <Pressable onPress={() => navigation.navigate('Main Menu')}>
+                <Pressable onPress={() => {
+                    fromModal ?
+                    navigation.navigate('Main Menu') :
+                    navigation.goBack()
+                }}>
                     <Text style={[styles.text, styles.shadowText, {paddingBottom: '1%'}]}>Back to home</Text>
                 </Pressable>
             </View>

@@ -62,13 +62,16 @@ const ProfilePage = ({ navigation }) => {
     <SafeAreaView style={styles.background}>
       <Image source={require("../assets/cloudBackground.png")} />
       <View style={[styles.container, styles.shadowBox]}>
-        <Pressable style={styles.backHome} onPress={() => navigation.navigate('Main Menu')}>
-          <Text
-            style={[styles.text, styles.shadowText]}
-          >
-            Back to home
-          </Text>
-        </Pressable>
+        {
+          userName !== 'null' &&
+          <Pressable style={styles.backHome} onPress={() => navigation.goBack()}>
+            <Text
+              style={[styles.text, styles.shadowText]}
+            >
+              Back to home
+            </Text>
+          </Pressable>
+        }
         <Text
           style={[
             styles.title,
