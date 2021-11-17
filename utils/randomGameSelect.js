@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import randomPick from './random';
 import PauseButton from '../components/PauseButton';
-import { useLocation } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { changeGame } from '../redux/gameState';
 
@@ -14,13 +13,13 @@ export let gamesList = [
     <KGamePage name='Bananas for Bananas' />,
 ];
 
-const randomGameSelect = () => {
+const randomGameSelect = ({ route, navigation }) => {
 
     let game;
 
     const dispatch = useDispatch();
-    const location = useLocation()
-    const { chosenGame } = location.state
+
+    const chosenGame = route.params.chosenGame
 
 
     useEffect(() => {
@@ -41,7 +40,7 @@ const randomGameSelect = () => {
         return (
             <>
                 {gamesList[randomNumber]}
-                <PauseButton />
+                <PauseButton navigation={navigation} />
             </>
         )
     }

@@ -8,7 +8,7 @@ import arrow from '../assets/arrow.png'
 let screenWidth = Dimensions.get("screen").width;
 let screenHeight = Dimensions.get("screen").height;
 
-const LevelSelect = () => {
+const LevelSelect = ({ navigation }) => {
 
     // Sets up the pages of games variable and sets it to the right amount of pages depending on how many games there are and if there will be game pages with only one game
     let gamePages
@@ -42,11 +42,8 @@ const LevelSelect = () => {
                     // Will render out only 2 games based on what page you are on
                     if((page - 1) * 2 === key || (page - 1) * 2 === key - 1){
                         return(
-                            <Link
-                                to={{
-                                    pathname: '/game',
-                                    state: { chosenGame: key }
-                                }}
+                            <Pressable
+                                onPress={() => navigation.navigate('Random Game Select', { chosenGame: key })}
                                 key={key}
                             >
                                 <View 
@@ -72,7 +69,7 @@ const LevelSelect = () => {
                                         >{game.props.name}</Text>
                                     </View>
                                 </View>
-                            </Link>
+                            </Pressable>
                         )
                     }
                 })}
@@ -100,9 +97,9 @@ const LevelSelect = () => {
                         overflow: 'scroll'
                     }}
                 >{gamesListView()}</View>
-                <Link to="/">
+                <Pressable onPress={() => navigation.navigate('Main Menu')}>
                     <Text style={[styles.text, styles.shadowText, {paddingBottom: '1%'}]}>Back to home</Text>
-                </Link>
+                </Pressable>
             </View>
         </ImageBackground>
     )

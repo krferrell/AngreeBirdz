@@ -7,19 +7,18 @@ import {
   Pressable,
   View,
 } from "react-native";
-import { Link } from "react-router-native";
 import luis8bit from "../assets/luis8bit.png";
 import kenny8bit from "../assets/kenny8bit.png";
 import jorge8bit from "../assets/jorge8bit.png";
 import kendrick8bit from "../assets/kendrick8bit.png";
 
-const SplashScreen = () => {
+const SplashScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.background}>
       <View style={{ position: "absolute", right: 55, top: 35 }}>
-        <Link to="/">
+        <Pressable onPress={() => navigation.navigate('Main Menu')} >
           <Text style={[styles.text, styles.shadowText]}>Back to home</Text>
-        </Link>
+        </Pressable>
       </View>
       <Text style={[styles.title, styles.shadowText]}>Reactoads Gaming</Text>
       <View style={styles.bigContainer}>
@@ -63,6 +62,7 @@ const SplashScreen = () => {
     </SafeAreaView>
   );
 };
+
 const styles = StyleSheet.create({
   background: {
     backgroundColor: "#48A3D7",

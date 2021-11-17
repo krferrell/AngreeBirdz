@@ -7,7 +7,7 @@ import pauseBtn from '../assets/pause.png';
 
 let screenWidth = Dimensions.get("screen").width;
 
-const PauseButton = () => {
+const PauseButton = ({ navigation }) => {
 
     const gameState = useSelector(state => state.gameState.value);
 
@@ -24,7 +24,7 @@ const PauseButton = () => {
                 >
                     <Image source={pauseBtn} style={styles.pauseBtnImg} />
                 </Pressable> : 
-                <MenuModal />
+                <MenuModal navigation={navigation} />
             }
         </>
     );
