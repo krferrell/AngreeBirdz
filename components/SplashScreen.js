@@ -14,7 +14,7 @@ import kendrick8bit from "../assets/kendrick8bit.png";
 
 const SplashScreen = ({ navigation }) => {
   return (
-    <SafeAreaView style={styles.background}>
+    <View style={styles.background}>
       <View style={{ position: "absolute", right: 55, top: 35 }}>
         <Pressable onPress={() => navigation.navigate('Main Menu')} >
           <Text style={[styles.text, styles.shadowText]}>Back to home</Text>
@@ -22,7 +22,7 @@ const SplashScreen = ({ navigation }) => {
       </View>
       <Text style={[styles.title, styles.shadowText]}>Reactoads Gaming</Text>
       <View style={styles.bigContainer}>
-      <View>
+        <View>
           <Pressable>
             <Text style={styles.names}>Github:</Text>
             <Text style={styles.names}>Kmausolf</Text>
@@ -59,7 +59,7 @@ const SplashScreen = ({ navigation }) => {
           </Pressable>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

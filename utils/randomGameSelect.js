@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import randomPick from './random';
+import shuffleArray from './shuffleArray';
 import PauseButton from '../components/PauseButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeGame } from '../redux/gameState';
+import { saveArray } from '../redux/gamesArrayState';
 
 // Games
 import CatchRuler from '../components/CatchRuler/GamePage';
@@ -19,35 +20,46 @@ const randomGameSelect = ({ route, navigation }) => {
 
     const dispatch = useDispatch();
 
-    const chosenGame = route.params.chosenGame
+    const randomizedGamesArray = useSelector(state => state.gamesArray.value);
+    const gameIndex = useSelector(state => state.gameIndex.value);
 
+    // This is used in the level select page to chose a specific minigame
+    const chosenGame = route.params.chosenGame;
 
     useEffect(() => {
         game = null;
         dispatch(changeGame("PLAY"));
-    }, [])
+        dispatch(saveArray(shuffleArray(gamesList)));
+    }, []);
 
     const chooseGame = () => {
-        let randomNumber;
+
         game = chosenGame;
-        
+
+        // Player playes the main game
         if(game === null){
-            randomNumber = randomPick(gamesList.length);
+            console.log(randomizedGamesArray)
+            return (
+                <>
+                    {gamesList[randomizedGamesArray[gameIndex]]}
+                    <PauseButton navigation={navigation} />
+                </> 
+            );
+
         }else{
-            randomNumber = game
-        }
-        
-        return (
-            <>
-                {gamesList[randomNumber]}
-                <PauseButton navigation={navigation} />
-            </>
-        )
-    }
+            // Picking a specific game
+            return (
+                <>
+                    {gamesList[game]}
+                    <PauseButton navigation={navigation} />
+                </>
+            );
+        };
+    };
 
     return (
         <>{chooseGame()}</>
-    )
-}
+    );
+};
 
 export default randomGameSelect;
