@@ -5,12 +5,14 @@ import GrabberMonkey from "./GrabberMonkey";
 import { Dimensions } from "react-native";
 import { Gyroscope } from "expo-sensors";
 import FeedMonkey from "./FeedMonkey";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeGame } from "../../redux/gameState";
 
 const KGamePage = () => {
   let screenHeight = Dimensions.get("screen").height;
   let screenWidth = Dimensions.get("screen").width;
+
+  const gameState = useSelector(state => state.gameState.value);
 
   let bananasX = Math.floor(screenHeight / 2);
   let bananasY = 0;
@@ -150,6 +152,7 @@ const KGamePage = () => {
   return (
     <GameEngine
       systems={[moveBananas, moveMonkeys, checkLose, checkWin]}
+      running={gameState === 'PLAY'}
       style={{
         backgroundColor: "lightblue",
         position: "absolute",
