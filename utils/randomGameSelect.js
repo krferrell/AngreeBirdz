@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import randomPick from './random';
+import shuffleArray from './shuffleArray';
 import PauseButton from '../components/PauseButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeGame } from '../redux/gameState';
+import { saveArray } from '../redux/gamesArrayState';
 
 // Games
 import CatchRuler from '../components/CatchRuler/GamePage';
@@ -16,66 +17,40 @@ export let gamesList = [
 const randomGameSelect = ({ route, navigation }) => {
 
     let game;
-    let index;
 
     const dispatch = useDispatch();
 
-    const chosenGame = route.params.chosenGame
+    const randomizedGamesArray = useSelector(state => state.gamesArray.value);
+    const gameIndex = useSelector(state => state.gameIndex.value);
 
+    // This is used in the level select page to chose a specific minigame
+    const chosenGame = route.params.chosenGame;
 
     useEffect(() => {
-        index = null;
         game = null;
         dispatch(changeGame("PLAY"));
-    }, [])
-
-    const shuffleArray = (array) => {
-        let currentIndex = array.length;
-        let randomIndex;
-
-        let gamesListPosition = [...Array(array.length).keys()];
-
-        // While there remain elements to shuffle...
-        while (currentIndex != 0) {
-
-            // Pick a remaining element...
-            randomIndex = randomPick(currentIndex);
-            currentIndex--;
-
-            // And swap it with the current element.
-            // Visualization here https://bost.ocks.org/mike/shuffle/
-            [gamesListPosition[currentIndex], gamesListPosition[randomIndex]] = [gamesListPosition[randomIndex], gamesListPosition[currentIndex]];
-        }
-
-        return gamesListPosition;
-    }
+        dispatch(saveArray(shuffleArray(gamesList)));
+    }, []);
 
     const chooseGame = () => {
-        let randomNumber;
-        let randomizedGameArray;
 
         game = chosenGame;
 
+        // Player playes the main game
         if(game === null){
-
-            randomNumber = randomPick(gamesList.length);
-            randomizedGameArray = shuffleArray(gamesList);
-            index = 0;  
-
+            console.log(randomizedGamesArray)
             return (
                 <>
-                    {gamesList[randomizedGameArray[index]]}
-                    <PauseButton index={index} />
-                </>
+                    {gamesList[randomizedGamesArray[gameIndex]]}
+                    <PauseButton navigation={navigation} />
+                </> 
             );
 
         }else{
-
-            randomNumber = game;
-
+            // Picking a specific game
             return (
                 <>
-                    {gamesList[randomNumber]}
+                    {gamesList[game]}
                     <PauseButton navigation={navigation} />
                 </>
             );

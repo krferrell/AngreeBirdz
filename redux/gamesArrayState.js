@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const gamesArraySlice = createSlice({
-    name: 'gameState',
+    name: 'gamesArray',
     initialState: { value: [] },
     reducers: {
-        shuffleArray: (state, action) => {
-            state.value = 
+        saveArray: (state, action) => {
+            state.value = action.payload
         },
     },
 });
 
-export const { changeGame } = gamesArraySlice.actions;
+export const { saveArray } = gamesArraySlice.actions;
 
 export default gamesArraySlice.reducer;
