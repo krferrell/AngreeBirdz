@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Dimensions } from "react-native";
 import { GameEngine } from "react-native-game-engine";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeGame } from "../../redux/gameState";
 import Ruler from "./Ruler";
 
@@ -10,9 +10,9 @@ const CatchRuler = () => {
     let screenWidth = Dimensions.get("screen").width;
     let screenHeight = Dimensions.get("screen").height;
 
-  const [ running, setRunning ] = useState(true);
+  const gameState = useSelector(state => state.gameState.value);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   // Game Loop
   const gameLoop = (entities, { touches }) => {
@@ -32,7 +32,6 @@ const CatchRuler = () => {
         yPress <= entities.ruler.position[0] + 100)
       ){
         dispatch(changeGame("WIN"))
-        setRunning(false)
       }
     });
 
@@ -47,7 +46,7 @@ const CatchRuler = () => {
   return (
     <GameEngine
       systems={[gameLoop]}
-      running={running}
+      running={gameState === 'PLAY'}
       style={{
         width: screenWidth,
         height: screenHeight,

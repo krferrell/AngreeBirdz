@@ -14,8 +14,6 @@ const MenuModal = ({ navigation }) => {
     const gamesArray = useSelector(state => state.gamesArray.value);
     const gameIndex = useSelector(state => state.gameIndex.value);
 
-    console.log(gamesArray.length)
-
     const dispatch = useDispatch();
 
     return (

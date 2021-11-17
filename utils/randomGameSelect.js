@@ -38,7 +38,6 @@ const randomGameSelect = ({ route, navigation }) => {
 
         // Player playes the main game
         if(game === null){
-            console.log(randomizedGamesArray)
             return (
                 <>
                     {gamesList[randomizedGamesArray[gameIndex]]}
