@@ -88,7 +88,7 @@ const LevelSelect = ({ navigation }) => {
     return (
         <ImageBackground source={backgroundImg} style={styles.background}>
             <View style={[styles.container, styles.shadowBox]}>
-                <Text style={[styles.title, styles.shadowText]}>Level Select</Text>
+                <Text style={[styles.title, styles.shadowText]}>Practice Mode</Text>
                 <View 
                     style={{ 
                         display: 'flex', 
