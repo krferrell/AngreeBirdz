@@ -54,7 +54,17 @@ const MenuModal = () => {
                             style={styles.playButton} 
                             onPress={() => {
                                 dispatch(changeGame("PLAY"))
-                                navigation.navigate('Main Menu')
+                                dispatch(saveIndex(0))
+                                navigation.reset({
+                                    index: 0,
+                                    routes: [
+                                        { name: 'Main Menu' },
+                                        {
+                                            name: 'Random Game Select',
+                                            params: { fromGameSelect: false },
+                                        },
+                                    ],
+                                })
                             }}
                         >
                             <Text style={[styles.modalText, styles.addShadow]}>Replay?</Text>

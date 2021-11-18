@@ -25,12 +25,11 @@ const randomGameSelect = ({ route }) => {
 
     // This is used in the level select page to chose a specific minigame
     const chosenGame = route?.params?.chosenGame;
+    const fromGameSelect = route?.params?.fromGameSelect;
 
     useEffect(() => {
         game = null;
         dispatch(changeGame("PLAY"));
-
-        console.log(chosenGame)
 
         if(randomizedGamesArray != []){
             dispatch(saveArray(shuffleArray(gamesList)));
@@ -43,7 +42,7 @@ const randomGameSelect = ({ route }) => {
         game = chosenGame;
 
         // Player playes the main game
-        if(game){
+        if(fromGameSelect){
             // Picking a specific game
             return (
                 <>
