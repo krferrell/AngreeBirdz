@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Image,
-  SafeAreaView,
   Text,
   StyleSheet,
   Pressable,
@@ -12,14 +11,20 @@ import kenny8bit from "../assets/kenny8bit.png";
 import jorge8bit from "../assets/jorge8bit.png";
 import kendrick8bit from "../assets/kendrick8bit.png";
 
-const SplashScreen = ({ navigation }) => {
+const SplashScreen = ({ navigation, route }) => {
+
+  const splashScreenGone = route?.params?.splashScreenGone
+
   return (
     <View style={styles.background}>
-      <View style={{ position: "absolute", right: 55, top: 35 }}>
-        <Pressable onPress={() => navigation.navigate('Main Menu')} >
-          <Text style={[styles.text, styles.shadowText]}>Back to home</Text>
-        </Pressable>
-      </View>
+      {
+        splashScreenGone &&
+        <View style={{ position: "absolute", right: 55, top: 35 }}>
+          <Pressable onPress={() => {navigation.goBack()}} >
+            <Text style={[styles.text, styles.shadowText]}>Back to home</Text>
+          </Pressable>
+        </View>
+      }
       <Text style={[styles.title, styles.shadowText]}>Reactoads Gaming</Text>
       <View style={styles.bigContainer}>
         <View>

@@ -4,17 +4,24 @@ import { Dimensions, StyleSheet,  } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeGame } from '../redux/gameState';
 import { saveIndex } from '../redux/gameIndexState';
+import { useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 
 let screenWidth = Dimensions.get("screen").width;
 let screenHeight = Dimensions.get("screen").height;
 
-const MenuModal = ({ navigation }) => {
+const MenuModal = () => {
 
     const gameState = useSelector(state => state.gameState.value);
     const gamesArray = useSelector(state => state.gamesArray.value);
     const gameIndex = useSelector(state => state.gameIndex.value);
 
     const dispatch = useDispatch();
+
+    const navigation = useNavigation();
+    const route = useRoute();
+
+    const fromGameSelect = route.params.fromGameSelect
 
     return (
         <View style={ styles.modalPageBackground}>
@@ -47,7 +54,17 @@ const MenuModal = ({ navigation }) => {
                             style={styles.playButton} 
                             onPress={() => {
                                 dispatch(changeGame("PLAY"))
-                                navigation.navigate('Main Menu')
+                                dispatch(saveIndex(0))
+                                navigation.reset({
+                                    index: 0,
+                                    routes: [
+                                        { name: 'Main Menu' },
+                                        {
+                                            name: 'Random Game Select',
+                                            params: { fromGameSelect: false },
+                                        },
+                                    ],
+                                })
                             }}
                         >
                             <Text style={[styles.modalText, styles.addShadow]}>Replay?</Text>
@@ -64,11 +81,21 @@ const MenuModal = ({ navigation }) => {
                     )
                 }
 
-                <Pressable onPress={() => navigation.navigate('Main Menu')}>
+                <Pressable onPress={() => {
+                    dispatch(changeGame("PLAY"))
+                    fromGameSelect ?
+                    navigation.navigate('Main Menu') :
+                    navigation.goBack();
+                }}>
                     <Text style={[styles.modalText, styles.addShadow]}>Home Page</Text>
                 </Pressable>
 
-                <Pressable onPress={() => navigation.navigate('Level Select')}>
+                <Pressable onPress={() => {
+                    dispatch(changeGame("PLAY"))
+                    fromGameSelect ?
+                    navigation.goBack() :
+                    navigation.navigate('Level Select', { fromModal: true })
+                }}>
                     <Text style={[styles.modalText, styles.addShadow]}>Level Select Page</Text>
                 </Pressable>
             </View>

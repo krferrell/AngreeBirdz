@@ -14,7 +14,7 @@ export let gamesList = [
     <KGamePage name='Bananas for Bananas' />,
 ];
 
-const randomGameSelect = ({ route, navigation }) => {
+const randomGameSelect = ({ route }) => {
 
     let game;
 
@@ -24,12 +24,17 @@ const randomGameSelect = ({ route, navigation }) => {
     const gameIndex = useSelector(state => state.gameIndex.value);
 
     // This is used in the level select page to chose a specific minigame
-    const chosenGame = route.params.chosenGame;
+    const chosenGame = route?.params?.chosenGame;
+    const fromGameSelect = route?.params?.fromGameSelect;
 
     useEffect(() => {
         game = null;
         dispatch(changeGame("PLAY"));
-        dispatch(saveArray(shuffleArray(gamesList)));
+
+        if(randomizedGamesArray != []){
+            dispatch(saveArray(shuffleArray(gamesList)));
+        };
+
     }, []);
 
     const chooseGame = () => {
@@ -37,21 +42,20 @@ const randomGameSelect = ({ route, navigation }) => {
         game = chosenGame;
 
         // Player playes the main game
-        if(game === null){
-            return (
-                <>
-                    {gamesList[randomizedGamesArray[gameIndex]]}
-                    <PauseButton navigation={navigation} />
-                </> 
-            );
-
-        }else{
+        if(fromGameSelect){
             // Picking a specific game
             return (
                 <>
                     {gamesList[game]}
-                    <PauseButton navigation={navigation} />
+                    <PauseButton />
                 </>
+            );
+        }else{
+            return (
+                <>
+                    {gamesList[randomizedGamesArray[gameIndex]]}
+                    <PauseButton />
+                </> 
             );
         };
     };
