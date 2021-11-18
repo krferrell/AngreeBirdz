@@ -7,6 +7,7 @@ import { Gyroscope } from "expo-sensors";
 import FeedMonkey from "./FeedMonkey";
 import { useDispatch, useSelector } from "react-redux";
 import { changeGame } from "../../redux/gameState";
+import MonkeySplash from './MonkeySplash';
 
 const KGamePage = () => {
   let screenHeight = Dimensions.get("screen").height;
@@ -150,37 +151,40 @@ const KGamePage = () => {
   };
 
   return (
-    <GameEngine
-      systems={[moveBananas, moveMonkeys, checkLose, checkWin]}
-      running={gameState === 'PLAY'}
-      style={{
-        backgroundColor: "lightblue",
-        position: "absolute",
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-      }}
-      entities={{
-        bananas: { position: [bananasX, bananasY], renderer: <Bananas /> },
-        grabberMonkey1: {
-          position: [grabberMonkey1X, grabberMonkey1Y],
-          isUp: false,
-          renderer: <GrabberMonkey />,
-        },
-        grabberMonkey2: {
-          position: [grabberMonkey2X, grabberMonkey2Y],
-          isUp: false,
-          renderer: <GrabberMonkey />,
-        },
-        grabberMonkey3: {
-          position: [grabberMonkey3X, grabberMonkey3Y],
-          isUp: true,
-          renderer: <GrabberMonkey />,
-        },
-        feedMonkey: { renderer: <FeedMonkey /> },
-      }}
-    ></GameEngine>
+    <>
+      <GameEngine
+        systems={[moveBananas, moveMonkeys, checkLose, checkWin]}
+        running={gameState === 'PLAY'}
+        style={{
+          backgroundColor: "lightblue",
+          position: "absolute",
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+        }}
+        entities={{
+          bananas: { position: [bananasX, bananasY], renderer: <Bananas /> },
+          grabberMonkey1: {
+            position: [grabberMonkey1X, grabberMonkey1Y],
+            isUp: false,
+            renderer: <GrabberMonkey />,
+          },
+          grabberMonkey2: {
+            position: [grabberMonkey2X, grabberMonkey2Y],
+            isUp: false,
+            renderer: <GrabberMonkey />,
+          },
+          grabberMonkey3: {
+            position: [grabberMonkey3X, grabberMonkey3Y],
+            isUp: true,
+            renderer: <GrabberMonkey />,
+          },
+          feedMonkey: { renderer: <FeedMonkey /> },
+        }}
+      ></GameEngine>
+      <MonkeySplash /> 
+    </>
   );
 };
 
