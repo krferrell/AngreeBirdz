@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet, Image } from "react-native";
-import ruler from "../../assets/catchRuler/ruler.png";
+import roach from "../../assets/squishRoach/roach.png";
 
-const BoxObstacle = ({position}) => {
+const Roach = ({position}) => {
   return(
     <>
       <Image 
-        source={ruler}
+        source={roach}
         style={[
           styles.obstacle, 
           {
@@ -23,8 +23,10 @@ const styles = StyleSheet.create({
     obstacle: {
       position: "absolute",
       height: 100,
-      width: 400
+      width: 400,
+      transform: [{ rotate: '270deg' }],
+      resizeMode: "contain",
     }
   });
 
-export default BoxObstacle;
+export default Roach;
