@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { Dimensions } from "react-native";
+import React from "react";
+import { Dimensions, Image } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import { useDispatch, useSelector } from "react-redux";
 import { changeGame } from "../../redux/gameState";
-import Ruler from "./Ruler";
+import Roach from "./Roach";
+import roachSplash from '../../assets/squishRoach/roachSplash.png';
 
-const CatchRuler = () => {
+const SquishRoach = () => {
 
-    let screenWidth = Dimensions.get("screen").width;
-    let screenHeight = Dimensions.get("screen").height;
+  let screenWidth = Dimensions.get("screen").width;
+  let screenHeight = Dimensions.get("screen").height;
 
   const gameState = useSelector(state => state.gameState.value);
 
@@ -44,19 +45,30 @@ const CatchRuler = () => {
   }
 
   return (
-    <GameEngine
-      systems={[gameLoop]}
-      running={gameState === 'PLAY'}
-      style={{
-        width: screenWidth,
-        height: screenHeight,
-        backgroundColor: "lightblue",
-      }}
-      entities={{
-        ruler: { position: [screenHeight / 2, -600], renderer: <Ruler /> },
-      }}
-    />
+    <>
+      <GameEngine
+        systems={[gameLoop]}
+        running={gameState === 'PLAY'}
+        style={{
+          width: screenWidth,
+          height: screenHeight,
+          backgroundColor: "lightblue",
+        }}
+        entities={{
+          ruler: { position: [screenHeight / 2, -600], renderer: <Roach /> },
+        }}
+      />
+      <Image 
+        source={roachSplash} 
+        style={{
+          resizeMode: "stretch",
+          position: 'absolute',
+          height: 250,
+          width: 350,
+        }} 
+      />
+    </>
   );
 };
 
-export default CatchRuler;
+export default SquishRoach;

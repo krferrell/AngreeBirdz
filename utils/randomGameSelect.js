@@ -6,11 +6,11 @@ import { changeGame } from '../redux/gameState';
 import { saveArray } from '../redux/gamesArrayState';
 
 // Games
-import CatchRuler from '../components/CatchRuler/GamePage';
+import SquishRoach from '../components/SquishRoach/GamePage';
 import KGamePage from '../components/kennyGame/KGameEngine';
 
 export let gamesList = [
-    <CatchRuler name='Catch the Ruler' />, 
+    <SquishRoach name='Squish the Roach' />, 
     <KGamePage name='Bananas for Bananas' />,
 ];
 
