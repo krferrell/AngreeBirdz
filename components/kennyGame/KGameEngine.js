@@ -7,6 +7,7 @@ import { Gyroscope } from "expo-sensors";
 import FeedMonkey from "./FeedMonkey";
 import { useDispatch, useSelector } from "react-redux";
 import { changeGame } from "../../redux/gameState";
+import { loseLife } from "../../redux/livesState";
 import MonkeySplash from './MonkeySplash';
 
 const KGamePage = () => {
@@ -14,6 +15,7 @@ const KGamePage = () => {
   let screenWidth = Dimensions.get("screen").width;
 
   const gameState = useSelector(state => state.gameState.value);
+  const livesState = useSelector(state => state.livesIndex.value);
 
   let bananasX = Math.floor(screenHeight / 2);
   let bananasY = 0;
@@ -132,7 +134,12 @@ const KGamePage = () => {
         bananas.position[1] > monkey3.position[1] - 45 &&
         bananas.position[1] < monkey3.position[1] + 45)
     ) {
-      dispatch(changeGame("LOSE"));
+      if(livesState > 0 && gameState === 'PLAY'){
+        dispatch(loseLife())
+        dispatch(changeGame("LOSE"))
+      }else{
+        dispatch(changeGame("LOSE"))
+      }
     }
   
     return entities;
