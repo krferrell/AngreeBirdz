@@ -4,6 +4,7 @@ import gameStateSlice from './gameState';
 import userStateSlice from './userState';
 import gamesArraySlice from './gamesArrayState';
 import gameIndexSlice from './gameIndexState';
+import livesSlice from './livesState';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const persistConfig = {
@@ -19,6 +20,7 @@ const store = configureStore({
     userState: persistedUserState,
     gamesArray: gamesArraySlice,
     gameIndex: gameIndexSlice,
+    livesIndex: livesSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: false

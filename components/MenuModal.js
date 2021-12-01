@@ -3,6 +3,7 @@ import { View, Text, Pressable } from 'react-native';
 import { Dimensions, StyleSheet,  } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeGame } from '../redux/gameState';
+import { resetLives } from '../redux/livesState';
 import { saveIndex } from '../redux/gameIndexState';
 import { useNavigation } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
@@ -42,7 +43,7 @@ const MenuModal = () => {
                         style={styles.playButton} 
                         onPress={() => {dispatch(changeGame("PLAY"))}}
                     >
-                        <Text style={[styles.modalText, styles.addShadow]}>Resume?</Text> 
+                        <Text style={[styles.modalText, styles.addShadow]}>Resume</Text> 
                     </Pressable> 
                 }
 
@@ -53,6 +54,7 @@ const MenuModal = () => {
                         <Pressable
                             style={styles.playButton} 
                             onPress={() => {
+                                dispatch(resetLives())
                                 dispatch(changeGame("PLAY"))
                                 dispatch(saveIndex(0))
                                 navigation.reset({
@@ -67,7 +69,7 @@ const MenuModal = () => {
                                 })
                             }}
                         >
-                            <Text style={[styles.modalText, styles.addShadow]}>Replay?</Text>
+                            <Text style={[styles.modalText, styles.addShadow]}>Replay</Text>
                         </Pressable> :
                         <Pressable
                             style={styles.playButton} 
@@ -76,7 +78,7 @@ const MenuModal = () => {
                                 dispatch(saveIndex(gameIndex + 1))
                             }}
                         >
-                            <Text style={[styles.modalText, styles.addShadow]}>Continue?</Text>
+                            <Text style={[styles.modalText, styles.addShadow]}>Continue</Text>
                         </Pressable>
                     )
                 }

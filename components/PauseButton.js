@@ -30,7 +30,6 @@ const PauseButton = () => {
     );
 };
 
-
 const styles = StyleSheet.create({
     pauseBtn: {
         backgroundColor: 'white',
