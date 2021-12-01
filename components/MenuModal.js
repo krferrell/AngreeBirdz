@@ -25,9 +25,6 @@ const MenuModal = () => {
     const fromGameSelect = route.params.fromGameSelect
     const chosenGameKey = route.params.chosenGame
 
-    console.log("game array length", gamesArray.length)
-    console.log("game index plus 1", gameIndex + 1)
-
     return (
         <View style={ styles.modalPageBackground}>
             <View style={ styles.modalContainer}>
