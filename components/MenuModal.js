@@ -23,6 +23,10 @@ const MenuModal = () => {
     const route = useRoute();
 
     const fromGameSelect = route.params.fromGameSelect
+    const chosenGameKey = route.params.chosenGame
+
+    console.log("game array length", gamesArray.length)
+    console.log("game index plus 1", gameIndex + 1)
 
     return (
         <View style={ styles.modalPageBackground}>
@@ -50,6 +54,29 @@ const MenuModal = () => {
                 {
                     (gameState === 'LOSE' || gameState === 'WIN') &&
                     (
+                        // If the game is selected from the game select screen, at the end of the game the modal will ask if the player wants to replay the game 
+                        fromGameSelect ?
+                        <Pressable
+                                style={styles.playButton} 
+                                onPress={() => {
+                                    dispatch(resetLives())
+                                    dispatch(changeGame("PLAY"))
+                                    dispatch(saveIndex(0))
+                                        navigation.reset({
+                                            index: 0,
+                                            routes: [
+                                                { name: 'Level Select' },
+                                                {
+                                                    name: 'Random Game Select',
+                                                    params: { fromGameSelect: true, chosenGame: chosenGameKey },
+                                                },
+                                            ],
+                                        })
+                                }}
+                        >
+                            <Text style={[styles.modalText, styles.addShadow]}>Replay</Text>
+                        </Pressable> :
+                        // If not from the game select screen the modal will only ask to replay if you pass the final game
                         gamesArray.length === (gameIndex + 1) ?
                         <Pressable
                             style={styles.playButton} 

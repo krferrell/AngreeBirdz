@@ -51,11 +51,11 @@ const MainMenu = ({ navigation }) => {
             <View style={styles.buttonContainer}>
 
               <Pressable onPress={() => navigation.navigate('Random Game Select', { fromGameSelect: false })}>
-                <Text style={[styles.buttons, styles.shadowText, {fontFamily: loaded ? "SchoolBell" : null}]}>Start</Text>
+                <Text style={[styles.buttons, styles.shadowText, {fontFamily: loaded ? "SchoolBell" : null}]}>Games Start</Text>
               </Pressable>
 
               <Pressable onPress={() => navigation.navigate('Level Select', { fromModal: false })}>
-                <Text style={[styles.buttons, styles.shadowText, {fontFamily: loaded ? "SchoolBell" : null}]}>Game Select</Text>
+                <Text style={[styles.buttons, styles.shadowText, {fontFamily: loaded ? "SchoolBell" : null}]}>Practice Games</Text>
               </Pressable>
 
               <Pressable onPress={() => navigation.navigate('Profile Page')}>
