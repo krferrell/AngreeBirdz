@@ -64,6 +64,7 @@ const MainMenu = ({ navigation }) => {
 
             </View>
           </View> 
+          <Text style={[styles.version, styles.shadowText, {fontFamily: loaded ? "SchoolBell" : null}]} >Version 0.1.1</Text>
         </> :
 
         <SplashScreen splashScreenGone={splashScreenGone} /> 
@@ -134,6 +135,12 @@ const styles = StyleSheet.create({
   },
   credits: {
     fontSize: 70
+  },
+  version: {
+    position: "absolute",
+    left: 30,
+    bottom: 20,
+    fontSize: 20,
   }
 });
 
