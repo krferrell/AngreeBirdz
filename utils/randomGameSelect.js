@@ -9,10 +9,12 @@ import Life from '../components/Life';
 // Games
 import SquishRoach from '../components/SquishRoach/GamePage';
 import KGamePage from '../components/kennyGame/KGameEngine';
+import KillMonster from '../components/killMonster/gamePage';
 
 export let gamesList = [
     <SquishRoach name='Squish the Roach' />, 
     <KGamePage name='Bananas for Bananas' />,
+    <KillMonster name='Shoot the Monster' />,
 ];
 
 const randomGameSelect = ({ route }) => {
