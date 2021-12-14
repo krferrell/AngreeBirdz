@@ -20,26 +20,26 @@ const SquishRoach = () => {
   // Game Loop
   const gameLoop = (entities, { touches }) => {
 
-    // Move the ruler
-    entities.ruler.position[1] = entities.ruler.position[1] + 10;
+    // Move the roach
+    entities.roach.position[1] = entities.roach.position[1] + 10;
 
-    // See if the press was on the ruler
+    // See if the press was on the roach
     touches.filter(t => t.type === "press").forEach(t => {
       let xPress = t.event.locationX
       let yPress = t.event.locationY
 
       if(
-        (xPress >= entities.ruler.position[1] && 
-        xPress <= entities.ruler.position[1] + 400) &&
-        (yPress >= entities.ruler.position[0] && 
-        yPress <= entities.ruler.position[0] + 100)
+        (xPress >= entities.roach.position[1] && 
+        xPress <= entities.roach.position[1] + 400) &&
+        (yPress >= entities.roach.position[0] && 
+        yPress <= entities.roach.position[0] + 100)
       ){
         dispatch(changeGame("WIN"))
       }
     });
 
     // Check to see if the user has missed
-    if(entities.ruler.position[1] > screenWidth){
+    if(entities.roach.position[1] > screenWidth){
       if(livesState > 0 && gameState === 'PLAY'){
         dispatch(loseLife())
         dispatch(changeGame("LOSE"))
@@ -62,7 +62,7 @@ const SquishRoach = () => {
           backgroundColor: "lightblue",
         }}
         entities={{
-          ruler: { position: [screenHeight / 2, -600], renderer: <Roach /> },
+          roach: { position: [screenHeight / 2, -600], renderer: <Roach /> },
         }}
       />
       <Image 
