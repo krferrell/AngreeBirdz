@@ -4,14 +4,17 @@ import PauseButton from '../components/PauseButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeGame } from '../redux/gameState';
 import { saveArray } from '../redux/gamesArrayState';
+import Life from '../components/Life';
 
 // Games
 import SquishRoach from '../components/SquishRoach/GamePage';
 import KGamePage from '../components/kennyGame/KGameEngine';
+import KillMonster from '../components/killMonster/gamePage';
 
 export let gamesList = [
     <SquishRoach name='Squish the Roach' />, 
     <KGamePage name='Bananas for Bananas' />,
+    <KillMonster name='Shoot the Monster' />,
 ];
 
 const randomGameSelect = ({ route }) => {
@@ -55,6 +58,7 @@ const randomGameSelect = ({ route }) => {
                 <>
                     {gamesList[randomizedGamesArray[gameIndex]]}
                     <PauseButton />
+                    <Life />
                 </> 
             );
         };

@@ -3,6 +3,7 @@ import { View, Text, Pressable } from 'react-native';
 import { Dimensions, StyleSheet,  } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeGame } from '../redux/gameState';
+import { resetLives } from '../redux/livesState';
 import { saveIndex } from '../redux/gameIndexState';
 import { useNavigation } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
@@ -22,6 +23,7 @@ const MenuModal = () => {
     const route = useRoute();
 
     const fromGameSelect = route.params.fromGameSelect
+    const chosenGameKey = route.params.chosenGame
 
     return (
         <View style={ styles.modalPageBackground}>
@@ -42,17 +44,41 @@ const MenuModal = () => {
                         style={styles.playButton} 
                         onPress={() => {dispatch(changeGame("PLAY"))}}
                     >
-                        <Text style={[styles.modalText, styles.addShadow]}>Resume?</Text> 
+                        <Text style={[styles.modalText, styles.addShadow]}>Resume</Text> 
                     </Pressable> 
                 }
 
                 {
                     (gameState === 'LOSE' || gameState === 'WIN') &&
                     (
+                        // If the game is selected from the game select screen, at the end of the game the modal will ask if the player wants to replay the game 
+                        fromGameSelect ?
+                        <Pressable
+                                style={styles.playButton} 
+                                onPress={() => {
+                                    dispatch(resetLives())
+                                    dispatch(changeGame("PLAY"))
+                                    dispatch(saveIndex(0))
+                                        navigation.reset({
+                                            index: 0,
+                                            routes: [
+                                                { name: 'Level Select' },
+                                                {
+                                                    name: 'Random Game Select',
+                                                    params: { fromGameSelect: true, chosenGame: chosenGameKey },
+                                                },
+                                            ],
+                                        })
+                                }}
+                        >
+                            <Text style={[styles.modalText, styles.addShadow]}>Replay</Text>
+                        </Pressable> :
+                        // If not from the game select screen the modal will only ask to replay if you pass the final game
                         gamesArray.length === (gameIndex + 1) ?
                         <Pressable
                             style={styles.playButton} 
                             onPress={() => {
+                                dispatch(resetLives())
                                 dispatch(changeGame("PLAY"))
                                 dispatch(saveIndex(0))
                                 navigation.reset({
@@ -67,7 +93,7 @@ const MenuModal = () => {
                                 })
                             }}
                         >
-                            <Text style={[styles.modalText, styles.addShadow]}>Replay?</Text>
+                            <Text style={[styles.modalText, styles.addShadow]}>Replay</Text>
                         </Pressable> :
                         <Pressable
                             style={styles.playButton} 
@@ -76,7 +102,7 @@ const MenuModal = () => {
                                 dispatch(saveIndex(gameIndex + 1))
                             }}
                         >
-                            <Text style={[styles.modalText, styles.addShadow]}>Continue?</Text>
+                            <Text style={[styles.modalText, styles.addShadow]}>Continue</Text>
                         </Pressable>
                     )
                 }

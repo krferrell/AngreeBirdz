@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Dimensions, ImageBackground, StyleSheet, View, Text, Image, Pressable } from 'react-native';
-import { Link } from 'react-router-native';
 import { gamesList } from '../utils/randomGameSelect';
 import backgroundImg from '../assets/cloudBackground.png';
 import arrow from '../assets/arrow.png'
@@ -21,7 +20,7 @@ const LevelSelect = ({ navigation, route }) => {
 
     const [ page, setPage ] = useState(1);
 
-    const fromModal = route.params.fromModal 
+    const fromModal = route?.params?.fromModal 
 
     const gamesListView = () => {
         return (
